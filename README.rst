@@ -56,3 +56,7 @@ ensure consistency:
 >>> shortuuid.get_alphabet()
 '0123abcdefgh'
 
+License
+-------
+
+``shortuuid`` is distributed under the BSD license.
