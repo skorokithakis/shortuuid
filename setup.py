@@ -2,7 +2,7 @@
 
 import sys
 assert sys.version >= '2.5', "Requires Python v2.5 or above."
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name = "shortuuid",
