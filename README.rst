@@ -39,6 +39,12 @@ You can then generate a short UUID:
 >>> shortuuid.uuid()
 'vytxeTZskVKR7C7WgdSP3d'
 
+If you prefer a version 3 UUID, you can pass a URL to the call and it will be used
+as a URL namespace for the resulting UUID:
+
+>>> shortuuid.uuid(url="http://example.com/")
+'nzcZ3Y648sUBirQ2bwywDP'
+
 To see the alphabet that is being used to generate new UUIDs:
 
 >>> shortuuid.get_alphabet()
@@ -55,6 +61,10 @@ ensure consistency:
 
 >>> shortuuid.get_alphabet()
 '0123abcdefgh'
+
+If the default 22 digits are too long for you, you can get shorter IDs by just
+truncating the string to the desired length. The IDs won't be universally unique
+any longer, but the probability of a collision will still be very low.
 
 License
 -------
