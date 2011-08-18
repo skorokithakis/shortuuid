@@ -48,7 +48,7 @@ as a URL namespace for the resulting UUID:
 To see the alphabet that is being used to generate new UUIDs:
 
 >>> shortuuid.get_alphabet()
-'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+'23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
 
 If you want to use your own alphabet to generate UUIDs, use ``set_alphabet()``:
 
