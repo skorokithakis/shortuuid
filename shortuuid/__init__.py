@@ -19,12 +19,12 @@ def uuid(url=None):
         unique_id = _uu.uuid3(_uu.NAMESPACE_URL, url).int
 
     alphabet_length = len(_ALPHABET)
-    output = []
+    output = ""
     while unique_id > 0:
         digit = unique_id % alphabet_length
-        output.append(_ALPHABET[digit])
+        output += _ALPHABET[digit]
         unique_id = int(unique_id / alphabet_length)
-    return "".join(output)
+    return output   
 
 def get_alphabet():
     """Return the current alphabet used for new UUIDs."""
