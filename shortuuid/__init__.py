@@ -16,7 +16,7 @@ def encode(uuid):
     while unique_id > 0:
         digit = unique_id % alphabet_length
         output += _ALPHABET[digit]
-        unique_id = int(unique_id / alphabet_length)
+        unique_id = int(unique_id/alphabet_length)
     return output
 
 def decode(string):
@@ -29,7 +29,7 @@ def decode(string):
     for char in string[::-1]:
         value = _ALPHABET.index(char)
         number = number * len(_ALPHABET) + value
-    return _uu.UUID(int = number)
+    return _uu.UUID(int=number)
 
 def uuid(name=None):
     """
