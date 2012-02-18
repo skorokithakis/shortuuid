@@ -24,7 +24,7 @@ If you have the dependencies, you have multiple options of installation:
 * With pip (preferred), do ``pip install shortuuid``.
 * With setuptools, do ``easy_install shortuuid``.
 * To install the source, download it from
-  https://github.com/devfeng/shortuuid and do
+  https://github.com/stochastic-technologies/shortuuid and do
   ``python setup.py install``.
 
 Usage
