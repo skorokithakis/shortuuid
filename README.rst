@@ -81,7 +81,7 @@ True
 'cu8Eo9R'
 >>> h = shortuuid.decode(short)
 UUID('00000000-0000-0000-0000-00b8c0b9f952')
->>> shortuuid.decode(shortuuid.encode(short)) == short
+>>> shortuuid.decode(shortuuid.encode(h)) == h
 True
 
 License
