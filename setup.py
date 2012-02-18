@@ -6,7 +6,7 @@ from setuptools import setup
 
 setup(
     name = "shortuuid",
-    version = "0.1",
+    version = "0.2",
     author = "Stochastic Technologies",
     author_email = "info@stochastictechnologies.com",
     url = "https://github.com/stochastic-technologies/shortuuid/",
