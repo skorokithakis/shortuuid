@@ -55,11 +55,6 @@ def set_alphabet(alphabet):
     """Set the alphabet to be used for new UUIDs."""
     global _ALPHABET
 
-    try:
-       set
-    except NameError:
-       from sets import Set as set
-
     # Turn the alphabet into a set and sort it to prevent duplicates
     # and ensure reproducibility.
     new_alphabet = "".join(sorted(set(alphabet)))
