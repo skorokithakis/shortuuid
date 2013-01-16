@@ -3,7 +3,8 @@
 import uuid as _uu
 
 # Define our alphabet.
-_ALPHABET = "23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+_ALPHABET = list("23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz")
+_ALPHA_LEN = len(_ALPHABET)
 
 def encode(uuid):
     """
@@ -11,12 +12,10 @@ def encode(uuid):
     If leftmost (MSB) bits 0, string might be shorter
     """
     unique_id = uuid.int
-    alphabet_length = len(_ALPHABET)
     output = ""
-    while unique_id > 0:
-        digit = unique_id % alphabet_length
+    while unique_id:
+        unique_id, digit = divmod(unique_id, _ALPHA_LEN)
         output += _ALPHABET[digit]
-        unique_id = int(unique_id/alphabet_length)
     return output
 
 def decode(string):
@@ -27,8 +26,7 @@ def decode(string):
     """
     number = 0
     for char in string[::-1]:
-        value = _ALPHABET.index(char)
-        number = number * len(_ALPHABET) + value
+        number = number * _ALPHA_LEN + _ALPHABET.index(char)
     return _uu.UUID(int=number)
 
 def uuid(name=None):
@@ -49,16 +47,17 @@ def uuid(name=None):
 
 def get_alphabet():
     """Return the current alphabet used for new UUIDs."""
-    return _ALPHABET
+    return ''.join(_ALPHABET)
 
 def set_alphabet(alphabet):
     """Set the alphabet to be used for new UUIDs."""
-    global _ALPHABET
+    global _ALPHABET, _ALPHA_LEN
 
     # Turn the alphabet into a set and sort it to prevent duplicates
     # and ensure reproducibility.
-    new_alphabet = "".join(sorted(set(alphabet)))
+    new_alphabet = list(sorted(set(alphabet)))
     if len(new_alphabet) > 1:
         _ALPHABET = new_alphabet
+        _ALPHA_LEN = len(_ALPHABET)
     else:
         raise ValueError("Alphabet with more than one unique symbols required.")
