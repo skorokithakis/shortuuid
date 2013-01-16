@@ -6,6 +6,7 @@ import uuid as _uu
 _ALPHABET = list("23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz")
 _ALPHA_LEN = len(_ALPHABET)
 
+
 def encode(uuid):
     """
     Encodes a UUID into a string (LSB first) according to the alphabet
@@ -18,6 +19,7 @@ def encode(uuid):
         output += _ALPHABET[digit]
     return output
 
+
 def decode(string):
     """
     Decodes a string according to the current alphabet into a UUID
@@ -29,6 +31,7 @@ def decode(string):
         number = number * _ALPHA_LEN + _ALPHABET.index(char)
     return _uu.UUID(int=number)
 
+
 def uuid(name=None):
     """
     Generate and return a UUID.
@@ -39,15 +42,17 @@ def uuid(name=None):
     # If no name is given, generate a random UUID.
     if name is None:
         uuid = _uu.uuid4()
-    elif not "http" in name:
+    elif not "http" in name.lower():
         uuid = _uu.uuid5(_uu.NAMESPACE_DNS, name)
     else:
         uuid = _uu.uuid5(_uu.NAMESPACE_URL, name)
     return encode(uuid)
 
+
 def get_alphabet():
     """Return the current alphabet used for new UUIDs."""
     return ''.join(_ALPHABET)
+
 
 def set_alphabet(alphabet):
     """Set the alphabet to be used for new UUIDs."""
