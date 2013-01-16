@@ -11,6 +11,8 @@ this problem by generating uuids using Python's built-in ``uuid`` module and the
 translating them to base57 using lowercase and uppercase letters and digits, and
 removing similar-looking characters such as l, 1, I, O and 0.
 
+.. image:: https://travis-ci.org/stochastic-technologies/shortuuid.png?branch=master
+    :target: https://travis-ci.org/stochastic-technologies/shortuuid
 
 Installation
 ------------
