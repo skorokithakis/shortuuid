@@ -1,6 +1,6 @@
 import unittest
 
-from uuid import UUID
+from uuid import UUID, uuid4
 from main import *
 
 
@@ -28,6 +28,15 @@ class ShortUUIDTest(unittest.TestCase):
 
         set_alphabet("01010101010101")
         self.assertEquals(alphabet, get_alphabet())
+
+        self.assertEquals(set(uuid()), set("01"))
+        self.assertGreater(len(uuid()), 120)
+
+        u = uuid4()
+        self.assertEquals(u, decode(encode(u)))
+
+        u = uuid()
+        self.assertEquals(u, encode(decode(u)))
 
         self.assertRaises(ValueError, set_alphabet, "1")
         self.assertRaises(ValueError, set_alphabet, "1111111")
