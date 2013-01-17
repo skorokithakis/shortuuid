@@ -30,7 +30,7 @@ class ShortUUIDTest(unittest.TestCase):
         self.assertEquals(alphabet, get_alphabet())
 
         self.assertEquals(set(uuid()), set("01"))
-        self.assertGreater(len(uuid()), 120)
+        self.assertTrue(120 < len(uuid()) < 136)
 
         u = uuid4()
         self.assertEquals(u, decode(encode(u)))
