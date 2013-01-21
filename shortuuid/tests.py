@@ -1,7 +1,7 @@
 import unittest
 
 from uuid import UUID, uuid4
-from main import *
+from .main import *
 
 
 class ShortUUIDTest(unittest.TestCase):

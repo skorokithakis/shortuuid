@@ -15,5 +15,9 @@ setup(
                        " by using an extensive, case-sensitive alphabet and omitting "
                        "similar-looking letters and numbers.",
 	license = "BSD",
+    classifiers=[
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 3'
+    ],
     packages = ["shortuuid"],
 )
