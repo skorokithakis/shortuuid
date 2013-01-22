@@ -10,10 +10,10 @@ from shortuuid.main import *
 
 class ShortUUIDTest(unittest.TestCase):
     def test_generation(self):
-        self.assertEqual(len(uuid()), 22)
-        self.assertEqual(len(uuid("http://www.example.com/")), 22)
-        self.assertEqual(len(uuid("HTTP://www.example.com/")), 22)
-        self.assertEqual(len(uuid("example.com")), 22)
+        self.assertTrue(21 < len(uuid()) < 23)
+        self.assertTrue(21 < len(uuid("http://www.example.com/")) < 23)
+        self.assertTrue(21 < len(uuid("HTTP://www.example.com/")) < 23)
+        self.assertTrue(21 < len(uuid("example.com")) < 23)
 
     def test_encoding(self):
         u = UUID('{12345678-1234-5678-1234-567812345678}')
