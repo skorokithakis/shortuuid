@@ -1,7 +1,11 @@
+import os
+import sys
 import unittest
 
 from uuid import UUID, uuid4
-from main import *
+
+sys.path.insert(0, os.path.abspath(__file__ + "/../.."))
+from shortuuid.main import *
 
 
 class ShortUUIDTest(unittest.TestCase):
