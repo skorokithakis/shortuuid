@@ -86,6 +86,21 @@ UUID('00000000-0000-0000-0000-00b8c0b9f952')
 >>> shortuuid.decode(shortuuid.encode(h)) == h
 True
 
+Class-based usage
+-----------------
+
+If you need to have various alphabets per-thread, you can use the `ShortUUID` class, like so:
+
+>>> su = shortuuid.ShortUUID(alphabet="01345678")
+>>> su.uuid()
+'034636353306816784480643806546503818874456'
+>>> su.get_alphabet()
+'01345678'
+>>> su.set_alphabet("21345687654123456")
+>>> su.get_alphabet()
+'12345678'
+
+
 License
 -------
 
