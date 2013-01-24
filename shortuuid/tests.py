@@ -8,12 +8,12 @@ sys.path.insert(0, os.path.abspath(__file__ + "/../.."))
 from shortuuid.main import *
 
 
-class ShortUUIDTest(unittest.TestCase):
+class LegacyShortUUIDTest(unittest.TestCase):
     def test_generation(self):
-        self.assertTrue(21 < len(uuid()) < 23)
-        self.assertTrue(21 < len(uuid("http://www.example.com/")) < 23)
-        self.assertTrue(21 < len(uuid("HTTP://www.example.com/")) < 23)
-        self.assertTrue(21 < len(uuid("example.com")) < 23)
+        self.assertAlmostEqual(len(uuid()), 22, delta=2)
+        self.assertAlmostEqual(len(uuid("http://www.example.com/")), 22, delta=2)
+        self.assertAlmostEqual(len(uuid("HTTP://www.example.com/")), 22, delta=2)
+        self.assertAlmostEqual(len(uuid("example.com/")), 22, delta=2)
 
     def test_encoding(self):
         u = UUID('{12345678-1234-5678-1234-567812345678}')
@@ -34,7 +34,7 @@ class ShortUUIDTest(unittest.TestCase):
         self.assertEquals(alphabet, get_alphabet())
 
         self.assertEquals(set(uuid()), set("01"))
-        self.assertTrue(120 < len(uuid()) < 136)
+        self.assertAlmostEqual(len(uuid()), 128, delta=12)
 
         u = uuid4()
         self.assertEquals(u, decode(encode(u)))
@@ -46,6 +46,48 @@ class ShortUUIDTest(unittest.TestCase):
         self.assertRaises(ValueError, set_alphabet, "1111111")
 
         set_alphabet(backup_alphabet)
+
+
+class ClassShortUUIDTest(unittest.TestCase):
+    def test_generation(self):
+        su = ShortUUID()
+        self.assertAlmostEqual(len(su.uuid()), 22, delta=2)
+        self.assertAlmostEqual(len(su.uuid("http://www.example.com/")), 22, delta=2)
+        self.assertAlmostEqual(len(su.uuid("HTTP://www.example.com/")), 22, delta=2)
+        self.assertAlmostEqual(len(su.uuid("example.com/")), 22, delta=2)
+
+    def test_encoding(self):
+        su = ShortUUID()
+        u = UUID('{12345678-1234-5678-1234-567812345678}')
+        self.assertEquals(su.encode(u), "VoVuUtBhZ6TvQSAYEqNdF5")
+
+    def test_decoding(self):
+        su = ShortUUID()
+        u = UUID('{12345678-1234-5678-1234-567812345678}')
+        self.assertEquals(su.decode("VoVuUtBhZ6TvQSAYEqNdF5"), u)
+
+    def test_alphabet(self):
+        alphabet = "01"
+        su1 = ShortUUID(alphabet)
+        su2 = ShortUUID()
+
+        self.assertEquals(alphabet, su1.get_alphabet())
+
+        su1.set_alphabet("01010101010101")
+        self.assertEquals(alphabet, su1.get_alphabet())
+
+        self.assertEquals(set(su1.uuid()), set("01"))
+        self.assertAlmostEqual(len(su1.uuid()), 128, delta=11)
+        self.assertAlmostEqual(len(su2.uuid()), 22, delta=2)
+
+        u = uuid4()
+        self.assertEquals(u, su1.decode(su1.encode(u)))
+
+        u = su1.uuid()
+        self.assertEquals(u, su1.encode(su1.decode(u)))
+
+        self.assertRaises(ValueError, su1.set_alphabet, "1")
+        self.assertRaises(ValueError, su1.set_alphabet, "1111111")
 
 
 if __name__ == '__main__':
