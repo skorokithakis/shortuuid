@@ -6,9 +6,10 @@ import uuid as _uu
 class ShortUUID(object):
     def __init__(self, alphabet=None):
         if alphabet is None:
-            # Define our alphabet.
-            self._alphabet = list("23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz")
-            self._alpha_len = len(self._alphabet)
+            alphabet = list("23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz")
+        # Define our alphabet.
+        self._alphabet = alphabet
+        self._alpha_len = len(self._alphabet)
 
     def encode(self, uuid):
         """
