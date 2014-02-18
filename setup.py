@@ -30,4 +30,5 @@ setup(
     license="BSD",
     classifiers=classifiers,
     packages=["shortuuid"],
+    test_suite='shortuuid.tests',
 )

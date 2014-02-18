@@ -6,4 +6,4 @@ python:
   - "3.3"
   - "pypy"
 install: # No dependencies.
-script: python shortuuid/tests.py
+script: python setup.py test
