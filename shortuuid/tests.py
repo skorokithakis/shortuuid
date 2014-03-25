@@ -1,6 +1,7 @@
 import os
 import sys
 import unittest
+import pep8
 
 from uuid import UUID, uuid4
 
@@ -89,6 +90,16 @@ class ClassShortUUIDTest(unittest.TestCase):
         self.assertRaises(ValueError, su1.set_alphabet, "1")
         self.assertRaises(ValueError, su1.set_alphabet, "1111111")
 
+    def test_pep8(self):
+        pep8style = pep8.StyleGuide([['statistics', True],
+                                     ['show-sources', True],
+                                     ['repeat', True],
+                                     ['paths', [os.path.dirname(
+                                         os.path.abspath(__file__))]]],
+                                    parse_argv=False,
+                                    config_file=True)
+        report = pep8style.check_files()
+        assert report.total_errors == 0
 
 if __name__ == '__main__':
     unittest.main()

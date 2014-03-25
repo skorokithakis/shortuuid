@@ -6,7 +6,8 @@ import uuid as _uu
 class ShortUUID(object):
     def __init__(self, alphabet=None):
         if alphabet is None:
-            alphabet = list("23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz")
+            alphabet = list("23456789ABCDEFGHJKLMNPQRSTUVWXYZ"
+                            "abcdefghijkmnopqrstuvwxyz")
         # Define our alphabet.
         self._alphabet = alphabet
         self._alpha_len = len(self._alphabet)
@@ -26,7 +27,8 @@ class ShortUUID(object):
     def decode(self, string):
         """
         Decodes a string according to the current alphabet into a UUID
-        Raises ValueError when encountering illegal characters or too long string
+        Raises ValueError when encountering illegal characters
+        or too long string
         If string too short, fills leftmost (MSB) bits with 0.
         """
         number = 0
@@ -64,7 +66,8 @@ class ShortUUID(object):
             self._alphabet = new_alphabet
             self._alpha_len = len(self._alphabet)
         else:
-            raise ValueError("Alphabet with more than one unique symbols required.")
+            raise ValueError("Alphabet with more than "
+                             "one unique symbols required.")
 
 # For backwards compatibility
 _global_instance = ShortUUID()
