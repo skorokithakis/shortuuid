@@ -11,7 +11,7 @@ from shortuuid.main import *
 
 class LegacyShortUUIDTest(unittest.TestCase):
     def test_generation(self):
-        self.assertTrue(20 < len(uuid()), 24)
+        self.assertTrue(20 < len(uuid()) < 24)
         self.assertTrue(20 < len(uuid("http://www.example.com/")) < 24)
         self.assertTrue(20 < len(uuid("HTTP://www.example.com/")) < 24)
         self.assertTrue(20 < len(uuid("example.com/")) < 24)
