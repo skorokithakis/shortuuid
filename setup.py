@@ -17,7 +17,7 @@ classifiers = [
 
 setup(
     name="shortuuid",
-    version="0.3.2",
+    version="0.4.0",
     author="Stochastic Technologies",
     author_email="info@stochastictechnologies.com",
     url="https://github.com/stochastic-technologies/shortuuid/",

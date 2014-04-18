@@ -67,6 +67,10 @@ class ClassShortUUIDTest(unittest.TestCase):
         u = UUID('{12345678-1234-5678-1234-567812345678}')
         self.assertEquals(su.decode("VoVuUtBhZ6TvQSAYEqNdF5"), u)
 
+    def test_random(self):
+        su = ShortUUID()
+        self.assertEquals(len(su.random()), 22)
+
     def test_alphabet(self):
         alphabet = "01"
         su1 = ShortUUID(alphabet)

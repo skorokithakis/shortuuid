@@ -1,6 +1,7 @@
 """ Concise UUID generation. """
 
 import uuid as _uu
+import os
 
 
 class ShortUUID(object):
@@ -12,17 +13,31 @@ class ShortUUID(object):
         self._alphabet = alphabet
         self._alpha_len = len(self._alphabet)
 
+    def _num_to_string(self, number):
+        """
+        Convert a number to a string, using the given alphabet.
+        """
+        output = ""
+        while number:
+            number, digit = divmod(number, self._alpha_len)
+            output += self._alphabet[digit]
+        return output
+
+    def _string_to_int(self, string):
+        """
+        Convert a string to a number, using the given alphabet..
+        """
+        number = 0
+        for char in string[::-1]:
+            number = number * self._alpha_len + self._alphabet.index(char)
+        return number
+
     def encode(self, uuid):
         """
         Encodes a UUID into a string (LSB first) according to the alphabet
         If leftmost (MSB) bits 0, string might be shorter
         """
-        unique_id = uuid.int
-        output = ""
-        while unique_id:
-            unique_id, digit = divmod(unique_id, self._alpha_len)
-            output += self._alphabet[digit]
-        return output
+        return self._num_to_string(uuid.int)
 
     def decode(self, string):
         """
@@ -31,10 +46,7 @@ class ShortUUID(object):
         or too long string
         If string too short, fills leftmost (MSB) bits with 0.
         """
-        number = 0
-        for char in string[::-1]:
-            number = number * self._alpha_len + self._alphabet.index(char)
-        return _uu.UUID(int=number)
+        return _uu.UUID(int=self._string_to_int(string))
 
     def uuid(self, name=None):
         """
@@ -51,6 +63,14 @@ class ShortUUID(object):
         else:
             uuid = _uu.uuid5(_uu.NAMESPACE_URL, name)
         return self.encode(uuid)
+
+    def random(self, length=22):
+        """
+        Generate and return a cryptographically-secure short random string
+        of the specified length.
+        """
+        random_num = int(os.urandom(length).encode("hex"), 16)
+        return self._num_to_string(random_num)[:length]
 
     def get_alphabet(self):
         """Return the current alphabet used for new UUIDs."""
