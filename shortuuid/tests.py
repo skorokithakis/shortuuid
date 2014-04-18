@@ -48,6 +48,9 @@ class LegacyShortUUIDTest(unittest.TestCase):
 
         set_alphabet(backup_alphabet)
 
+    def test_random(self):
+        self.assertEqual(len(random()), 22)
+
 
 class ClassShortUUIDTest(unittest.TestCase):
     def test_generation(self):

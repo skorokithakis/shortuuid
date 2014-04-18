@@ -95,5 +95,6 @@ _global_instance = ShortUUID()
 encode = _global_instance.encode
 decode = _global_instance.decode
 uuid = _global_instance.uuid
+random = _global_instance.random
 get_alphabet = _global_instance.get_alphabet
 set_alphabet = _global_instance.set_alphabet
