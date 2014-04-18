@@ -50,6 +50,13 @@ resulting UUID:
 >>> shortuuid.uuid(name="http://example.com")
 'c8sh5y9hdSMS6zVnrvf53T'
 
+You can also generate a cryptographically secure random string (using 
+`os.urandom()`, internally) with:
+
+>>> shortuuid.random(length=22)
+'RaF56o2r58hTKT7AYS9doj'
+
+
 To see the alphabet that is being used to generate new UUIDs:
 
 >>> shortuuid.get_alphabet()
