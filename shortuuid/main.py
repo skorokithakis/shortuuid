@@ -1,7 +1,8 @@
 """ Concise UUID generation. """
 
-import uuid as _uu
+import binascii
 import os
+import uuid as _uu
 
 
 class ShortUUID(object):
@@ -69,7 +70,7 @@ class ShortUUID(object):
         Generate and return a cryptographically-secure short random string
         of the specified length.
         """
-        random_num = int(os.urandom(length).encode("hex"), 16)
+        random_num = int(binascii.b2a_hex(os.urandom(length)), 16)
         return self._num_to_string(random_num)[:length]
 
     def get_alphabet(self):
