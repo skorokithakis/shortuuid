@@ -58,7 +58,7 @@ class ShortUUID(object):
         # If no name is given, generate a random UUID.
         if name is None:
             uuid = _uu.uuid4()
-        elif not "http" in name.lower():
+        elif "http" not in name.lower():
             uuid = _uu.uuid5(_uu.NAMESPACE_DNS, name)
         else:
             uuid = _uu.uuid5(_uu.NAMESPACE_URL, name)
