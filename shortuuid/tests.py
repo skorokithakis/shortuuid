@@ -1,4 +1,5 @@
 import os
+import string
 import sys
 import unittest
 import pep8
@@ -96,6 +97,23 @@ class ClassShortUUIDTest(unittest.TestCase):
 
         self.assertRaises(ValueError, su1.set_alphabet, "1")
         self.assertRaises(ValueError, su1.set_alphabet, "1111111")
+
+    def test_encoded_length(self):
+        su1 = ShortUUID()
+        self.assertEqual(su1.encoded_length(), 22)
+
+        base64_alphabet = string.ascii_uppercase + \
+            string.ascii_lowercase + string.digits + '+/'
+
+        su2 = ShortUUID(base64_alphabet)
+        self.assertEqual(su2.encoded_length(), 22)
+
+        binary_alphabet = "01"
+        su3 = ShortUUID(binary_alphabet)
+        self.assertEqual(su3.encoded_length(), 128)
+
+        su4 = ShortUUID()
+        self.assertEqual(su4.encoded_length(num_bytes=8), 11)
 
     def test_pep8(self):
         pep8style = pep8.StyleGuide([['statistics', True],
