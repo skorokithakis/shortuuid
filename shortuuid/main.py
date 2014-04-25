@@ -1,6 +1,7 @@
 """ Concise UUID generation. """
 
 import binascii
+import math
 import os
 import uuid as _uu
 
@@ -89,6 +90,14 @@ class ShortUUID(object):
         else:
             raise ValueError("Alphabet with more than "
                              "one unique symbols required.")
+
+    def encoded_length(self, num_bytes=16):
+        """
+        Returns the string length of the shortened UUID.
+        """
+        factor = math.log(256) / math.log(self._alpha_len)
+        return int(math.ceil(factor * num_bytes))
+
 
 # For backwards compatibility
 _global_instance = ShortUUID()
