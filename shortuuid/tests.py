@@ -51,6 +51,8 @@ class LegacyShortUUIDTest(unittest.TestCase):
 
     def test_random(self):
         self.assertEqual(len(random()), 22)
+        for i in range(1, 100):
+            self.assertEqual(len(random(i)), i)
 
 
 class ClassShortUUIDTest(unittest.TestCase):
@@ -74,6 +76,9 @@ class ClassShortUUIDTest(unittest.TestCase):
     def test_random(self):
         su = ShortUUID()
         self.assertEqual(len(su.random()), 22)
+
+        for i in range(1, 100):
+            self.assertEqual(len(su.random(i)), i)
 
     def test_alphabet(self):
         alphabet = "01"
