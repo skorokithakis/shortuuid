@@ -99,6 +99,22 @@ class ShortUUID(object):
         return int(math.ceil(factor * num_bytes))
 
 
+class PaddedShortUUID(ShortUUID):
+    """
+    Ensures that all ShortUUIDs are a constant length.
+    """
+    def _num_to_string(self, number):
+        output = super(PaddedShortUUID, self)._num_to_string(number)
+        expected_length = self.encoded_length()
+        remainder = expected_length - len(output)
+        if remainder:
+            output = "{padding}{output}".format(
+                padding=(self._alphabet[0] * remainder),
+                output=output
+            )
+        return output
+
+
 # For backwards compatibility
 _global_instance = ShortUUID()
 encode = _global_instance.encode

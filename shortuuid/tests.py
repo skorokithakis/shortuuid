@@ -131,5 +131,29 @@ class ClassShortUUIDTest(unittest.TestCase):
         report = pep8style.check_files()
         assert report.total_errors == 0
 
+
+class ClassPadddedShortUUIDTest(unittest.TestCase):
+    def test_padding(self):
+        su = PaddedShortUUID()
+        random_uid = uuid4()
+        smallest_uid = UUID(int=0)
+
+        encoded_random = su.encode(random_uid)
+        encoded_small = su.encode(smallest_uid)
+
+        self.assertEqual(len(encoded_random), len(encoded_small))
+
+    def test_decoding(self):
+        su = PaddedShortUUID()
+        random_uid = uuid4()
+        smallest_uid = UUID(int=0)
+
+        encoded_random = su.encode(random_uid)
+        encoded_small = su.encode(smallest_uid)
+
+        self.assertEqual(su.decode(encoded_small), smallest_uid)
+        self.assertEqual(su.decode(encoded_random), random_uid)
+
+
 if __name__ == '__main__':
     unittest.main()
