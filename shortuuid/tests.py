@@ -19,11 +19,11 @@ class LegacyShortUUIDTest(unittest.TestCase):
 
     def test_encoding(self):
         u = UUID('{12345678-1234-5678-1234-567812345678}')
-        self.assertEqual(encode(u), "VoVuUtBhZ6TvQSAYEqNdF5")
+        self.assertEqual(encode(u), "APIH05RRfpiawN2WWNmLY")
 
     def test_decoding(self):
         u = UUID('{12345678-1234-5678-1234-567812345678}')
-        self.assertEqual(decode("VoVuUtBhZ6TvQSAYEqNdF5"), u)
+        self.assertEqual(decode("APIH05RRfpiawN2WWNmLY"), u)
 
     def test_alphabet(self):
         backup_alphabet = get_alphabet()
@@ -66,12 +66,12 @@ class ClassShortUUIDTest(unittest.TestCase):
     def test_encoding(self):
         su = ShortUUID()
         u = UUID('{12345678-1234-5678-1234-567812345678}')
-        self.assertEqual(su.encode(u), "VoVuUtBhZ6TvQSAYEqNdF5")
+        self.assertEqual(su.encode(u), "APIH05RRfpiawN2WWNmLY")
 
     def test_decoding(self):
         su = ShortUUID()
         u = UUID('{12345678-1234-5678-1234-567812345678}')
-        self.assertEqual(su.decode("VoVuUtBhZ6TvQSAYEqNdF5"), u)
+        self.assertEqual(su.decode("APIH05RRfpiawN2WWNmLY"), u)
 
     def test_random(self):
         su = ShortUUID()

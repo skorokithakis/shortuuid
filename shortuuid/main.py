@@ -9,8 +9,8 @@ import uuid as _uu
 class ShortUUID(object):
     def __init__(self, alphabet=None):
         if alphabet is None:
-            alphabet = list("23456789ABCDEFGHJKLMNPQRSTUVWXYZ"
-                            "abcdefghijkmnopqrstuvwxyz")
+            alphabet = list("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                            "abcdefghijklmnopqrstuvwxyz")
         # Define our alphabet.
         self._alphabet = alphabet
         self._alpha_len = len(self._alphabet)
