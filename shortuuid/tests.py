@@ -1,3 +1,4 @@
+from collections import defaultdict
 import os
 import string
 import sys
@@ -153,6 +154,24 @@ class ClassPadddedShortUUIDTest(unittest.TestCase):
 
         self.assertEqual(su.decode(encoded_small), smallest_uid)
         self.assertEqual(su.decode(encoded_random), random_uid)
+
+    def test_consistency(self):
+        su = PaddedShortUUID()
+        num_iterations = 1000
+        uid_lengths = defaultdict(int)
+
+        for count in range(num_iterations):
+            random_uid = uuid4()
+            encoded_random = su.encode(random_uid)
+            uid_lengths[len(encoded_random)] += 1
+            decoded_random = su.decode(encoded_random)
+
+            self.assertEqual(random_uid, decoded_random)
+
+        self.assertEqual(len(uid_lengths), 1)
+        uid_length = next(iter(uid_lengths.keys()))  # Get the 1 value
+
+        self.assertEqual(uid_lengths[uid_length], num_iterations)
 
 
 if __name__ == '__main__':
