@@ -107,12 +107,7 @@ class PaddedShortUUID(ShortUUID):
         output = super(PaddedShortUUID, self)._num_to_string(number)
         expected_length = self.encoded_length()
         remainder = expected_length - len(output)
-        if remainder:
-            output = "{padding}{output}".format(
-                padding=(self._alphabet[0] * remainder),
-                output=output
-            )
-        return output
+        return output + self._alphabet[0] * remainder
 
 
 # For backwards compatibility
