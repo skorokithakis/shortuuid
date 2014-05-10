@@ -76,7 +76,8 @@ class ClassShortUUIDTest(unittest.TestCase):
 
     def test_random(self):
         su = ShortUUID()
-        self.assertEqual(len(su.random()), 22)
+        for i in range(1000):
+            self.assertEqual(len(su.random()), 22)
 
         for i in range(1, 100):
             self.assertEqual(len(su.random(i)), i)
@@ -133,9 +134,9 @@ class ClassShortUUIDTest(unittest.TestCase):
         assert report.total_errors == 0
 
 
-class ClassPadddedShortUUIDTest(unittest.TestCase):
+class ShortUUIDPaddingTest(unittest.TestCase):
     def test_padding(self):
-        su = PaddedShortUUID()
+        su = ShortUUID()
         random_uid = uuid4()
         smallest_uid = UUID(int=0)
 
@@ -145,7 +146,7 @@ class ClassPadddedShortUUIDTest(unittest.TestCase):
         self.assertEqual(len(encoded_random), len(encoded_small))
 
     def test_decoding(self):
-        su = PaddedShortUUID()
+        su = ShortUUID()
         random_uid = uuid4()
         smallest_uid = UUID(int=0)
 
@@ -156,7 +157,7 @@ class ClassPadddedShortUUIDTest(unittest.TestCase):
         self.assertEqual(su.decode(encoded_random), random_uid)
 
     def test_consistency(self):
-        su = PaddedShortUUID()
+        su = ShortUUID()
         num_iterations = 1000
         uid_lengths = defaultdict(int)
 

@@ -5,5 +5,4 @@ from shortuuid.main import (
     get_alphabet,
     set_alphabet,
     ShortUUID,
-    PaddedShortUUID,
 )
