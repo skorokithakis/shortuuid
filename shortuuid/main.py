@@ -15,7 +15,7 @@ class ShortUUID(object):
         self._alphabet = alphabet
         self._alpha_len = len(self._alphabet)
 
-    def _num_to_string(self, number):
+    def _num_to_string(self, number, pad_to_length=None):
         """
         Convert a number to a string, using the given alphabet.
         """
@@ -23,6 +23,9 @@ class ShortUUID(object):
         while number:
             number, digit = divmod(number, self._alpha_len)
             output += self._alphabet[digit]
+        if pad_to_length:
+            remainder = max(pad_to_length - len(output), 0)
+            output = output + self._alphabet[0] * remainder
         return output
 
     def _string_to_int(self, string):
@@ -39,7 +42,8 @@ class ShortUUID(object):
         Encodes a UUID into a string (LSB first) according to the alphabet
         If leftmost (MSB) bits 0, string might be shorter
         """
-        return self._num_to_string(uuid.int)
+        pad_length = self.encoded_length(len(uuid.bytes))
+        return self._num_to_string(uuid.int, pad_to_length=pad_length)
 
     def decode(self, string):
         """
@@ -72,7 +76,7 @@ class ShortUUID(object):
         of the specified length.
         """
         random_num = int(binascii.b2a_hex(os.urandom(length)), 16)
-        return self._num_to_string(random_num)[:length]
+        return self._num_to_string(random_num, pad_to_length=length)[:length]
 
     def get_alphabet(self):
         """Return the current alphabet used for new UUIDs."""

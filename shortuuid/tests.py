@@ -1,3 +1,4 @@
+from collections import defaultdict
 import os
 import string
 import sys
@@ -75,7 +76,8 @@ class ClassShortUUIDTest(unittest.TestCase):
 
     def test_random(self):
         su = ShortUUID()
-        self.assertEqual(len(su.random()), 22)
+        for i in range(1000):
+            self.assertEqual(len(su.random()), 22)
 
         for i in range(1, 100):
             self.assertEqual(len(su.random(i)), i)
@@ -130,6 +132,48 @@ class ClassShortUUIDTest(unittest.TestCase):
                                     config_file=True)
         report = pep8style.check_files()
         assert report.total_errors == 0
+
+
+class ShortUUIDPaddingTest(unittest.TestCase):
+    def test_padding(self):
+        su = ShortUUID()
+        random_uid = uuid4()
+        smallest_uid = UUID(int=0)
+
+        encoded_random = su.encode(random_uid)
+        encoded_small = su.encode(smallest_uid)
+
+        self.assertEqual(len(encoded_random), len(encoded_small))
+
+    def test_decoding(self):
+        su = ShortUUID()
+        random_uid = uuid4()
+        smallest_uid = UUID(int=0)
+
+        encoded_random = su.encode(random_uid)
+        encoded_small = su.encode(smallest_uid)
+
+        self.assertEqual(su.decode(encoded_small), smallest_uid)
+        self.assertEqual(su.decode(encoded_random), random_uid)
+
+    def test_consistency(self):
+        su = ShortUUID()
+        num_iterations = 1000
+        uid_lengths = defaultdict(int)
+
+        for count in range(num_iterations):
+            random_uid = uuid4()
+            encoded_random = su.encode(random_uid)
+            uid_lengths[len(encoded_random)] += 1
+            decoded_random = su.decode(encoded_random)
+
+            self.assertEqual(random_uid, decoded_random)
+
+        self.assertEqual(len(uid_lengths), 1)
+        uid_length = next(iter(uid_lengths.keys()))  # Get the 1 value
+
+        self.assertEqual(uid_lengths[uid_length], num_iterations)
+
 
 if __name__ == '__main__':
     unittest.main()
