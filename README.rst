@@ -53,7 +53,7 @@ resulting UUID:
 You can also generate a cryptographically secure random string (using 
 `os.urandom()`, internally) with:
 
->>> shortuuid.random(length=22)
+>>> shortuuid.ShortUUID().random(length=22)
 'RaF56o2r58hTKT7AYS9doj'
 
 
