@@ -50,6 +50,9 @@ class LegacyShortUUIDTest(unittest.TestCase):
 
         set_alphabet(backup_alphabet)
 
+        with self.assertRaises(ValueError):
+            ShortUUID("0")
+
     def test_random(self):
         self.assertEqual(len(random()), 22)
         for i in range(1, 100):
