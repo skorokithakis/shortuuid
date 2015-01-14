@@ -11,9 +11,8 @@ class ShortUUID(object):
         if alphabet is None:
             alphabet = list("23456789ABCDEFGHJKLMNPQRSTUVWXYZ"
                             "abcdefghijkmnopqrstuvwxyz")
-        # Define our alphabet.
-        self._alphabet = alphabet
-        self._alpha_len = len(self._alphabet)
+
+        self.set_alphabet(alphabet)
 
     def _num_to_string(self, number, pad_to_length=None):
         """
