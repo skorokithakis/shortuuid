@@ -1,14 +1,15 @@
-from collections import defaultdict
 import os
 import string
 import sys
 import unittest
 import pep8
+from collections import defaultdict
 
 from uuid import UUID, uuid4
 
 sys.path.insert(0, os.path.abspath(__file__ + "/../.."))
-from shortuuid.main import *
+
+from shortuuid.main import *  # noqa
 
 
 class LegacyShortUUIDTest(unittest.TestCase):
@@ -50,8 +51,7 @@ class LegacyShortUUIDTest(unittest.TestCase):
 
         set_alphabet(backup_alphabet)
 
-        make_instance = lambda x: ShortUUID(x)
-        self.assertRaises(ValueError, make_instance, "0")
+        self.assertRaises(ValueError, lambda x: ShortUUID(x), "0")
 
     def test_random(self):
         self.assertEqual(len(random()), 22)
@@ -131,8 +131,7 @@ class ClassShortUUIDTest(unittest.TestCase):
                                      ['repeat', True],
                                      ['paths', [os.path.dirname(
                                          os.path.abspath(__file__))]]],
-                                    parse_argv=False,
-                                    config_file=True)
+                                    parse_argv=False)
         report = pep8style.check_files()
         assert report.total_errors == 0
 
