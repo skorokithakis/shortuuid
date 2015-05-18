@@ -36,12 +36,11 @@ class ShortUUID(object):
             number = number * self._alpha_len + self._alphabet.index(char)
         return number
 
-    def encode(self, uuid):
+    def encode(self, uuid, pad_length=22):
         """
         Encodes a UUID into a string (LSB first) according to the alphabet
         If leftmost (MSB) bits 0, string might be shorter
         """
-        pad_length = self.encoded_length(len(uuid.bytes))
         return self._num_to_string(uuid.int, pad_to_length=pad_length)
 
     def decode(self, string):
@@ -53,7 +52,7 @@ class ShortUUID(object):
         """
         return _uu.UUID(int=self._string_to_int(string))
 
-    def uuid(self, name=None):
+    def uuid(self, name=None, pad_length=22):
         """
         Generate and return a UUID.
 
@@ -67,7 +66,7 @@ class ShortUUID(object):
             uuid = _uu.uuid5(_uu.NAMESPACE_DNS, name)
         else:
             uuid = _uu.uuid5(_uu.NAMESPACE_URL, name)
-        return self.encode(uuid)
+        return self.encode(uuid, pad_length)
 
     def random(self, length=22):
         """
