@@ -14,6 +14,14 @@ class ShortUUID(object):
 
         self.set_alphabet(alphabet)
 
+    @property
+    def _length(self):
+        """
+        Return the necessary length to fit the entire UUID given
+        the current alphabet.
+        """
+        return int(math.ceil(math.log(2 ** 128, self._alpha_len)))
+
     def _num_to_string(self, number, pad_to_length=None):
         """
         Convert a number to a string, using the given alphabet.
@@ -36,11 +44,13 @@ class ShortUUID(object):
             number = number * self._alpha_len + self._alphabet.index(char)
         return number
 
-    def encode(self, uuid, pad_length=22):
+    def encode(self, uuid, pad_length=None):
         """
         Encodes a UUID into a string (LSB first) according to the alphabet
         If leftmost (MSB) bits 0, string might be shorter
         """
+        if pad_length is None:
+            pad_length = self._length
         return self._num_to_string(uuid.int, pad_to_length=pad_length)
 
     def decode(self, string):
@@ -52,13 +62,16 @@ class ShortUUID(object):
         """
         return _uu.UUID(int=self._string_to_int(string))
 
-    def uuid(self, name=None, pad_length=22):
+    def uuid(self, name=None, pad_length=None):
         """
         Generate and return a UUID.
 
         If the name parameter is provided, set the namespace to the provided
         name and generate a UUID.
         """
+        if pad_length is None:
+            pad_length = self._length
+
         # If no name is given, generate a random UUID.
         if name is None:
             uuid = _uu.uuid4()
@@ -68,11 +81,14 @@ class ShortUUID(object):
             uuid = _uu.uuid5(_uu.NAMESPACE_URL, name)
         return self.encode(uuid, pad_length)
 
-    def random(self, length=22):
+    def random(self, length=None):
         """
         Generate and return a cryptographically-secure short random string
         of the specified length.
         """
+        if length is None:
+            length = self._length
+
         random_num = int(binascii.b2a_hex(os.urandom(length)), 16)
         return self._num_to_string(random_num, pad_to_length=length)[:length]
 
