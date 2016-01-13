@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+from shortuuid import __version__
 assert sys.version >= '2.5', "Requires Python v2.5 or above."
 from setuptools import setup
 
@@ -17,7 +18,7 @@ classifiers = [
 
 setup(
     name="shortuuid",
-    version="0.4.3",
+    version=__version__,
     author="Stochastic Technologies",
     author_email="info@stochastictechnologies.com",
     url="https://github.com/stochastic-technologies/shortuuid/",

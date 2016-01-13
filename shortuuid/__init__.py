@@ -7,3 +7,5 @@ from shortuuid.main import (
     set_alphabet,
     ShortUUID,
 )
+
+__version__ = "0.4.3"
