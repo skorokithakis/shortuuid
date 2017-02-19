@@ -6,6 +6,32 @@ import os
 import uuid as _uu
 
 
+def int_to_string(number, alphabet, padding=None):
+    """
+    Convert a number to a string, using the given alphabet.
+    """
+    output = ""
+    alpha_len = len(alphabet)
+    while number:
+        number, digit = divmod(number, alpha_len)
+        output += alphabet[digit]
+    if padding:
+        remainder = max(padding - len(output), 0)
+        output = output + alphabet[0] * remainder
+    return output
+
+
+def string_to_int(string, alphabet):
+    """
+    Convert a string to a number, using the given alphabet.
+    """
+    number = 0
+    alpha_len = len(alphabet)
+    for char in string[::-1]:
+        number = number * alpha_len + alphabet.index(char)
+    return number
+
+
 class ShortUUID(object):
     def __init__(self, alphabet=None):
         if alphabet is None:
@@ -22,28 +48,6 @@ class ShortUUID(object):
         """
         return int(math.ceil(math.log(2 ** 128, self._alpha_len)))
 
-    def _num_to_string(self, number, pad_to_length=None):
-        """
-        Convert a number to a string, using the given alphabet.
-        """
-        output = ""
-        while number:
-            number, digit = divmod(number, self._alpha_len)
-            output += self._alphabet[digit]
-        if pad_to_length:
-            remainder = max(pad_to_length - len(output), 0)
-            output = output + self._alphabet[0] * remainder
-        return output
-
-    def _string_to_int(self, string):
-        """
-        Convert a string to a number, using the given alphabet..
-        """
-        number = 0
-        for char in string[::-1]:
-            number = number * self._alpha_len + self._alphabet.index(char)
-        return number
-
     def encode(self, uuid, pad_length=None):
         """
         Encodes a UUID into a string (LSB first) according to the alphabet
@@ -51,7 +55,7 @@ class ShortUUID(object):
         """
         if pad_length is None:
             pad_length = self._length
-        return self._num_to_string(uuid.int, pad_to_length=pad_length)
+        return int_to_string(uuid.int, self._alphabet, padding=pad_length)
 
     def decode(self, string):
         """
@@ -60,7 +64,7 @@ class ShortUUID(object):
         or too long string
         If string too short, fills leftmost (MSB) bits with 0.
         """
-        return _uu.UUID(int=self._string_to_int(string))
+        return _uu.UUID(int=string_to_int(string, self._alphabet))
 
     def uuid(self, name=None, pad_length=None):
         """
@@ -90,7 +94,9 @@ class ShortUUID(object):
             length = self._length
 
         random_num = int(binascii.b2a_hex(os.urandom(length)), 16)
-        return self._num_to_string(random_num, pad_to_length=length)[:length]
+        return int_to_string(
+            random_num, self._alphabet, padding=length
+        )[:length]
 
     def get_alphabet(self):
         """Return the current alphabet used for new UUIDs."""
