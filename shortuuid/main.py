@@ -35,7 +35,7 @@ def string_to_int(string, alphabet):
 class ShortUUID(object):
     def __init__(self, alphabet=None):
         if alphabet is None:
-            alphabet = list("23456789ABCDEFGHJKLMNPQRSTUVWXYZ"
+            alphabet = list("0123456789ABCDEFGHJKLMNPQRSTUVWXYZ"
                             "abcdefghijkmnopqrstuvwxyz")
 
         self.set_alphabet(alphabet)
