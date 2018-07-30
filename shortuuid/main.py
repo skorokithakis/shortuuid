@@ -9,6 +9,7 @@ import uuid as _uu
 def int_to_string(number, alphabet, padding=None):
     """
     Convert a number to a string, using the given alphabet.
+    The output has the most significant digit first.
     """
     output = ""
     alpha_len = len(alphabet)
@@ -18,16 +19,17 @@ def int_to_string(number, alphabet, padding=None):
     if padding:
         remainder = max(padding - len(output), 0)
         output = output + alphabet[0] * remainder
-    return output
+    return output[::-1]
 
 
 def string_to_int(string, alphabet):
     """
     Convert a string to a number, using the given alphabet.
+    The input is assumed to have the most significant digit first.
     """
     number = 0
     alpha_len = len(alphabet)
-    for char in string[::-1]:
+    for char in string:
         number = number * alpha_len + alphabet.index(char)
     return number
 
