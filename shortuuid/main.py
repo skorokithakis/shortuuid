@@ -22,11 +22,17 @@ def int_to_string(number, alphabet, padding=None):
     return output[::-1]
 
 
-def string_to_int(string, alphabet):
+def string_to_int(string, alphabet, msb=True):
     """
     Convert a string to a number, using the given alphabet.
-    The input is assumed to have the most significant digit first.
+    The input is assumed to have the most significant digit first,
+    unless `msb` is set to `False`.
+    
+    The `msb` option is only here for compatibility with older
+    ShortUUID versions, and will go away in the future.
     """
+    if msb is False:
+        string = string[::-1]
     number = 0
     alpha_len = len(alphabet)
     for char in string:
