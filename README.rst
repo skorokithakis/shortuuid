@@ -108,6 +108,16 @@ If you need to have various alphabets per-thread, you can use the `ShortUUID` cl
 '12345678'
 
 
+Compatibility note
+------------------
+
+Earlier versions of ShortUUID generated UUIDs with their MSB last, i.e. reversed. This was later fixed, but if you have some UUIDs stored as a string in the old way, you need to pass `legacy=True` to `decode()` when converting your strings back to ints.
+
+That option will go away in the future, so you will want to convert your UUIDs to strings using the new way, with:
+
+>>> uuid = encode(decode(uuid))
+
+
 License
 -------
 
