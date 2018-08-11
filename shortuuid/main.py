@@ -22,14 +22,10 @@ def int_to_string(number, alphabet, padding=None):
     return output[::-1]
 
 
-def string_to_int(string, alphabet, msb=True):
+def string_to_int(string, alphabet):
     """
     Convert a string to a number, using the given alphabet.
-    The input is assumed to have the most significant digit first,
-    unless `msb` is set to `False`.
-    
-    The `msb` option is only here for compatibility with older
-    ShortUUID versions, and will go away in the future.
+    The input is assumed to have the most significant digit first.
     """
     if msb is False:
         string = string[::-1]
@@ -58,20 +54,27 @@ class ShortUUID(object):
 
     def encode(self, uuid, pad_length=None):
         """
-        Encodes a UUID into a string (LSB first) according to the alphabet
-        If leftmost (MSB) bits 0, string might be shorter
+        Encode a UUID into a string (LSB first) according to the alphabet
+        
+        If leftmost (MSB) bits are 0, the string might be shorter.
         """
         if pad_length is None:
             pad_length = self._length
         return int_to_string(uuid.int, self._alphabet, padding=pad_length)
 
-    def decode(self, string):
+    def decode(self, string, legacy=False):
         """
-        Decodes a string according to the current alphabet into a UUID
+        Decode a string according to the current alphabet into a UUID
         Raises ValueError when encountering illegal characters
-        or too long string
+        or a too-long string.
+
         If string too short, fills leftmost (MSB) bits with 0.
+        
+        Pass `legacy=True` if your UUID was encoded with a ShortUUID version
+        prior to 0.6.0.
         """
+        if legacy:
+            string = string[::-1]
         return _uu.UUID(int=string_to_int(string, self._alphabet))
 
     def uuid(self, name=None, pad_length=None):
