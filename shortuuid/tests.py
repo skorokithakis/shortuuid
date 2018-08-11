@@ -2,14 +2,13 @@ import os
 import string
 import sys
 import unittest
-import pep8
 from collections import defaultdict
-
 from uuid import UUID, uuid4
 
-sys.path.insert(0, os.path.abspath(__file__ + "/../.."))
+import pep8
+from shortuuid.main import ShortUUID, decode, encode, get_alphabet, random, set_alphabet, uuid
 
-from shortuuid.main import *  # noqa
+sys.path.insert(0, os.path.abspath(__file__ + "/../.."))
 
 
 class LegacyShortUUIDTest(unittest.TestCase):
@@ -20,11 +19,11 @@ class LegacyShortUUIDTest(unittest.TestCase):
         self.assertTrue(20 < len(uuid("example.com/")) < 24)
 
     def test_encoding(self):
-        u = UUID('{3b1f8b40-222c-4a6e-b77e-779d5a94e21c}')
+        u = UUID("{3b1f8b40-222c-4a6e-b77e-779d5a94e21c}")
         self.assertEqual(encode(u), "CXc85b4rqinB7s5J52TRYb")
 
     def test_decoding(self):
-        u = UUID('{3b1f8b40-222c-4a6e-b77e-779d5a94e21c}')
+        u = UUID("{3b1f8b40-222c-4a6e-b77e-779d5a94e21c}")
         self.assertEqual(decode("CXc85b4rqinB7s5J52TRYb"), u)
 
     def test_alphabet(self):
@@ -69,12 +68,12 @@ class ClassShortUUIDTest(unittest.TestCase):
 
     def test_encoding(self):
         su = ShortUUID()
-        u = UUID('{3b1f8b40-222c-4a6e-b77e-779d5a94e21c}')
+        u = UUID("{3b1f8b40-222c-4a6e-b77e-779d5a94e21c}")
         self.assertEqual(su.encode(u), "CXc85b4rqinB7s5J52TRYb")
 
     def test_decoding(self):
         su = ShortUUID()
-        u = UUID('{3b1f8b40-222c-4a6e-b77e-779d5a94e21c}')
+        u = UUID("{3b1f8b40-222c-4a6e-b77e-779d5a94e21c}")
         self.assertEqual(su.decode("CXc85b4rqinB7s5J52TRYb"), u)
 
     def test_random(self):
@@ -112,8 +111,7 @@ class ClassShortUUIDTest(unittest.TestCase):
         su1 = ShortUUID()
         self.assertEqual(su1.encoded_length(), 22)
 
-        base64_alphabet = string.ascii_uppercase + \
-            string.ascii_lowercase + string.digits + '+/'
+        base64_alphabet = string.ascii_uppercase + string.ascii_lowercase + string.digits + "+/"
 
         su2 = ShortUUID(base64_alphabet)
         self.assertEqual(su2.encoded_length(), 22)
@@ -126,12 +124,15 @@ class ClassShortUUIDTest(unittest.TestCase):
         self.assertEqual(su4.encoded_length(num_bytes=8), 11)
 
     def test_pep8(self):
-        pep8style = pep8.StyleGuide([['statistics', True],
-                                     ['show-sources', True],
-                                     ['repeat', True],
-                                     ['paths', [os.path.dirname(
-                                         os.path.abspath(__file__))]]],
-                                    parse_argv=False)
+        pep8style = pep8.StyleGuide(
+            [
+                ["statistics", True],
+                ["show-sources", True],
+                ["repeat", True],
+                ["paths", [os.path.dirname(os.path.abspath(__file__))]],
+            ],
+            parse_argv=False,
+        )
         report = pep8style.check_files()
         assert report.total_errors == 0
 
@@ -177,5 +178,5 @@ class ShortUUIDPaddingTest(unittest.TestCase):
         self.assertEqual(uid_lengths[uid_length], num_iterations)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -27,8 +27,6 @@ def string_to_int(string, alphabet):
     Convert a string to a number, using the given alphabet.
     The input is assumed to have the most significant digit first.
     """
-    if msb is False:
-        string = string[::-1]
     number = 0
     alpha_len = len(alphabet)
     for char in string:
@@ -39,8 +37,7 @@ def string_to_int(string, alphabet):
 class ShortUUID(object):
     def __init__(self, alphabet=None):
         if alphabet is None:
-            alphabet = list("23456789ABCDEFGHJKLMNPQRSTUVWXYZ"
-                            "abcdefghijkmnopqrstuvwxyz")
+            alphabet = list("23456789ABCDEFGHJKLMNPQRSTUVWXYZ" "abcdefghijkmnopqrstuvwxyz")
 
         self.set_alphabet(alphabet)
 
@@ -55,7 +52,7 @@ class ShortUUID(object):
     def encode(self, uuid, pad_length=None):
         """
         Encode a UUID into a string (LSB first) according to the alphabet
-        
+
         If leftmost (MSB) bits are 0, the string might be shorter.
         """
         if pad_length is None:
@@ -69,7 +66,7 @@ class ShortUUID(object):
         or a too-long string.
 
         If string too short, fills leftmost (MSB) bits with 0.
-        
+
         Pass `legacy=True` if your UUID was encoded with a ShortUUID version
         prior to 0.6.0.
         """
@@ -105,13 +102,11 @@ class ShortUUID(object):
             length = self._length
 
         random_num = int(binascii.b2a_hex(os.urandom(length)), 16)
-        return int_to_string(
-            random_num, self._alphabet, padding=length
-        )[:length]
+        return int_to_string(random_num, self._alphabet, padding=length)[:length]
 
     def get_alphabet(self):
         """Return the current alphabet used for new UUIDs."""
-        return ''.join(self._alphabet)
+        return "".join(self._alphabet)
 
     def set_alphabet(self, alphabet):
         """Set the alphabet to be used for new UUIDs."""
@@ -123,8 +118,7 @@ class ShortUUID(object):
             self._alphabet = new_alphabet
             self._alpha_len = len(self._alphabet)
         else:
-            raise ValueError("Alphabet with more than "
-                             "one unique symbols required.")
+            raise ValueError("Alphabet with more than " "one unique symbols required.")
 
     def encoded_length(self, num_bytes=16):
         """

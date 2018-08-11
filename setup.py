@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 
 import sys
-from shortuuid import __version__
-assert sys.version >= '2.5', "Requires Python v2.5 or above."
+
 from setuptools import setup
+
+from shortuuid import __version__
+
+assert sys.version >= "2.5", "Requires Python v2.5 or above."
 
 classifiers = [
     "License :: OSI Approved :: BSD License",
@@ -24,8 +27,7 @@ setup(
     author="Stochastic Technologies",
     author_email="info@stochastictechnologies.com",
     url="https://github.com/stochastic-technologies/shortuuid/",
-    description="A generator library for concise, "
-    "unambiguous and URL-safe UUIDs.",
+    description="A generator library for concise, " "unambiguous and URL-safe UUIDs.",
     long_description="A library that generates short, pretty, "
     "unambiguous unique IDs "
     "by using an extensive, case-sensitive alphabet and omitting "
@@ -33,6 +35,6 @@ setup(
     license="BSD",
     classifiers=classifiers,
     packages=["shortuuid"],
-    test_suite='shortuuid.tests',
-    tests_require=['pep8'],
+    test_suite="shortuuid.tests",
+    tests_require=["pep8"],
 )
