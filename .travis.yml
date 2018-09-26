@@ -10,5 +10,5 @@ install:
   - python setup.py install
   - pip install pre-commit
 script:
-  - if [[ "$TOXENV" == "py36" ]]; then pre-commit run -a; fi
+  - if [[ "$TRAVIS_PYTHON" == "3.6" ]]; then pre-commit run -a; fi
   - python setup.py test
