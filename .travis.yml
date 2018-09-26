@@ -7,4 +7,7 @@ python:
   - "3.6"
   - "pypy"
 install: # No dependencies.
-script: python setup.py test
+script:
+  - python setup.py install
+  - pre-commit run -a
+  - python setup.py test

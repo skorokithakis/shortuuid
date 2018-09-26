@@ -36,5 +36,5 @@ setup(
     classifiers=classifiers,
     packages=["shortuuid"],
     test_suite="shortuuid.tests",
-    tests_require=["pep8"],
+    tests_require=[],
 )

@@ -5,7 +5,6 @@ import unittest
 from collections import defaultdict
 from uuid import UUID, uuid4
 
-import pep8
 from shortuuid.main import ShortUUID, decode, encode, get_alphabet, random, set_alphabet, uuid
 
 sys.path.insert(0, os.path.abspath(__file__ + "/../.."))
@@ -122,19 +121,6 @@ class ClassShortUUIDTest(unittest.TestCase):
 
         su4 = ShortUUID()
         self.assertEqual(su4.encoded_length(num_bytes=8), 11)
-
-    def test_pep8(self):
-        pep8style = pep8.StyleGuide(
-            [
-                ["statistics", True],
-                ["show-sources", True],
-                ["repeat", True],
-                ["paths", [os.path.dirname(os.path.abspath(__file__))]],
-            ],
-            parse_argv=False,
-        )
-        report = pep8style.check_files()
-        assert report.total_errors == 0
 
 
 class ShortUUIDPaddingTest(unittest.TestCase):
