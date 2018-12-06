@@ -19,7 +19,7 @@ Installation
 
 To install ``shortuuid`` you need:
 
-* Python 2.5 or later in the 2.x line (earlier than 2.6 not tested).
+* Python 2.5 or later in the 2.x line (earlier than 2.6 not tested), or any 3.x.
 
 If you have the dependencies, you have multiple options of installation:
 
