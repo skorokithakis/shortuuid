@@ -150,7 +150,7 @@ tag_filter_regexp = r'^v?[0-9]+\.[0-9]+(\.[0-9]+)?$'
 ##
 ## This label will be used as the changelog Title of the last set of changes
 ## between last valid tag and HEAD if any.
-unreleased_version_label = "%%version%% (unreleased)"
+unreleased_version_label = "Unreleased"
 
 
 ## ``output_engine`` is a callable
@@ -181,9 +181,9 @@ unreleased_version_label = "%%version%% (unreleased)"
 ##        Examples:
 ##           - makotemplate("restructuredtext")
 ##
-output_engine = rest_py
+#output_engine = rest_py
 #output_engine = mustache("restructuredtext")
-#output_engine = mustache("markdown")
+output_engine = mustache("markdown")
 #output_engine = makotemplate("restructuredtext")
 
 
