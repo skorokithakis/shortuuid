@@ -1,7 +1,7 @@
 # Changelog
 
 
-## Unreleased
+## 0.5.1 (2020-03-05)
 
 ### Features
 
