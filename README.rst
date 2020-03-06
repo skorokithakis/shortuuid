@@ -50,7 +50,7 @@ resulting UUID:
 >>> shortuuid.uuid(name="http://example.com")
 'c8sh5y9hdSMS6zVnrvf53T'
 
-You can also generate a cryptographically secure random string (using 
+You can also generate a cryptographically secure random string (using
 `os.urandom()`, internally) with:
 
 >>> shortuuid.ShortUUID().random(length=22)
@@ -122,11 +122,15 @@ Command-line usage
 Compatibility note
 ------------------
 
-Earlier versions of ShortUUID generated UUIDs with their MSB last, i.e. reversed. This was later fixed, but if you have some UUIDs stored as a string in the old way, you need to pass `legacy=True` to `decode()` when converting your strings back to ints.
+Versions of ShortUUID prior to 1.0.0 generated UUIDs with their MSB last, i.e.
+reversed. This was later fixed, but if you have some UUIDs stored as a string
+with the old method, you need to pass `legacy=True` to `decode()` when
+converting your strings back to UUIDs.
 
-That option will go away in the future, so you will want to convert your UUIDs to strings using the new way, with:
+That option will go away in the future, so you will want to convert your UUIDs
+to strings using the new method. This can be done like so:
 
->>> uuid = encode(decode(uuid))
+>>> new_uuid_str = encode(decode(old_uuid_str, legacy=True))
 
 
 License

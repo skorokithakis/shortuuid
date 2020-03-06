@@ -68,7 +68,7 @@ class ShortUUID(object):
         If string too short, fills leftmost (MSB) bits with 0.
 
         Pass `legacy=True` if your UUID was encoded with a ShortUUID version
-        prior to 0.6.0.
+        prior to 1.0.0.
         """
         if legacy:
             string = string[::-1]
