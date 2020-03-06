@@ -3,9 +3,16 @@ import string
 import sys
 import unittest
 from collections import defaultdict
-from uuid import UUID, uuid4
+from uuid import UUID
+from uuid import uuid4
 
-from shortuuid.main import ShortUUID, decode, encode, get_alphabet, random, set_alphabet, uuid
+from shortuuid.main import decode
+from shortuuid.main import encode
+from shortuuid.main import get_alphabet
+from shortuuid.main import random
+from shortuuid.main import set_alphabet
+from shortuuid.main import ShortUUID
+from shortuuid.main import uuid
 
 sys.path.insert(0, os.path.abspath(__file__ + "/../.."))
 

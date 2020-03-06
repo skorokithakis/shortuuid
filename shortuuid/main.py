@@ -1,5 +1,4 @@
 """ Concise UUID generation. """
-
 import binascii
 import math
 import os
