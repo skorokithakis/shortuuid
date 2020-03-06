@@ -28,7 +28,7 @@ setup(
     "by using an extensive, case-sensitive alphabet and omitting "
     "similar-looking letters and numbers.",
     license="BSD",
-    python_requires='>=3.5',
+    python_requires=">=3.5",
     classifiers=classifiers,
     packages=["shortuuid"],
     test_suite="shortuuid.tests",

@@ -5,6 +5,8 @@
 
 ### Features
 
+* Drop support for Python before 3.5. [Stavros Korokithakis]
+
 * Add simple command-line interface (#43) [Éric Araujo]
 
 ### Fixes
