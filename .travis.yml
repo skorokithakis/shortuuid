@@ -9,5 +9,5 @@ install:
   - python setup.py install
   - pip install pre-commit gitchangelog pystache
 script:
-  - if [[ "$TRAVIS_PYTHON_VERSION" == "3.6" ]]; then pre-commit run -a; fi
+  - if [[ "$TRAVIS_PYTHON_VERSION" == "3.6" ]]; then pre-commit run -a --hook-stage=manual; fi
   - python setup.py test
