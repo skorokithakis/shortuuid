@@ -23,10 +23,7 @@ setup(
     author_email="info@stochastictechnologies.com",
     url="https://github.com/stochastic-technologies/shortuuid/",
     description="A generator library for concise, " "unambiguous and URL-safe UUIDs.",
-    long_description="A library that generates short, pretty, "
-    "unambiguous unique IDs "
-    "by using an extensive, case-sensitive alphabet and omitting "
-    "similar-looking letters and numbers.",
+    long_description=open("README.rst").read(),
     license="BSD",
     python_requires=">=3.5",
     classifiers=classifiers,
