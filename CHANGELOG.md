@@ -1,6 +1,13 @@
 # Changelog
 
 
+## v1.0.1 (2020-03-06)
+
+### Fixes
+
+* Use README as the long description on PyPI. [Stavros Korokithakis]
+
+
 ## v1.0.0 (2020-03-06)
 
 ### Features
