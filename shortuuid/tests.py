@@ -172,7 +172,6 @@ class ShortUUIDPaddingTest(unittest.TestCase):
 
 
 class EncodingEdgeCasesTest(unittest.TestCase):
-
     def test_decode_dict(self):
         su = ShortUUID()
         self.assertRaises(ValueError, su.encode, [])
@@ -181,8 +180,8 @@ class EncodingEdgeCasesTest(unittest.TestCase):
         self.assertRaises(ValueError, su.encode, 42)
         self.assertRaises(ValueError, su.encode, 42.0)
 
-class DecodingEdgeCasesTest(unittest.TestCase):
 
+class DecodingEdgeCasesTest(unittest.TestCase):
     def test_decode_dict(self):
         su = ShortUUID()
         self.assertRaises(ValueError, su.decode, [])
