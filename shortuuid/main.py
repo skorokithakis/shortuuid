@@ -54,6 +54,8 @@ class ShortUUID(object):
 
         If leftmost (MSB) bits are 0, the string might be shorter.
         """
+        if not isinstance(uuid, _uu.UUID):
+            raise ValueError('Input `uuid` must be a UUID object.')
         if pad_length is None:
             pad_length = self._length
         return int_to_string(uuid.int, self._alphabet, padding=pad_length)
@@ -69,6 +71,8 @@ class ShortUUID(object):
         Pass `legacy=True` if your UUID was encoded with a ShortUUID version
         prior to 1.0.0.
         """
+        if not isinstance(string, str):
+            raise ValueError('Input `string` must be a str.')
         if legacy:
             string = string[::-1]
         return _uu.UUID(int=string_to_int(string, self._alphabet))
