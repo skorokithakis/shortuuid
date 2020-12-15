@@ -1,10 +1,17 @@
 language: python
+arch:
+  - amd64
+  - ppc64le
 python:
   - "3.5"
   - "3.6"
   - "3.7"
   - "3.8"
   - "pypy3"
+jobs:
+  exclude:
+   - arch : ppc64le
+     python : pypy3
 install:
   - python setup.py install
   - pip install pre-commit gitchangelog pystache
