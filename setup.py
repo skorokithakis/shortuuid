@@ -5,7 +5,7 @@ from setuptools import setup
 
 from shortuuid import __version__
 
-assert sys.version >= "3.5", "Requires Python v3.5 or above."
+assert sys.version_info >= (3, 5), "Requires Python v3.5 or above."
 
 classifiers = [
     "License :: OSI Approved :: BSD License",
