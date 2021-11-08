@@ -1,6 +1,13 @@
 # Changelog
 
 
+## Unreleased
+
+### Features
+
+* Add Django ShortUUIDField. [Stavros Korokithakis]
+
+
 ## v1.0.2 (2021-11-08)
 
 ### Features
