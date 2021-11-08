@@ -110,13 +110,30 @@ If you need to have various alphabets per-thread, you can use the `ShortUUID` cl
 Command-line usage
 ------------------
 
-`shortuuid` provides a simple way to generate a short UUID in a terminal::
+``shortuuid`` provides a simple way to generate a short UUID in a terminal::
 
     $ python3 -m shortuuid
     fZpeF6gcskHbSpTgpQCkcJ
 
 
 (Replace `python3` with `py` if you are using Windows)
+
+
+Django field
+------------
+
+``shortuuid`` includes a Django field that generates random short UUIDs by default, for
+your convenience::
+
+  from shortuuid.django_fields import ShortUUIDField
+  
+  class MyModel(models.Model):
+      # A primary key ID of length 16 and a short alphabet.
+      id = ShortUUIDField(length=16, alphabet="abcdefg1234", primary_key=True)
+      # A short UUID of length 22 and the default alphabet.
+      api_key = ShortUUIDField()
+
+The field is the same as the ``CharField``, with ``max_length`` replaced with ``length``, an ``alphabet`` argument added and the ``default`` argument removed. Everything else is exactly the same, e.g. ``index``, ``help_text``, etc.
 
 
 Compatibility note
