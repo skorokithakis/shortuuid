@@ -9,9 +9,4 @@ from shortuuid.main import set_alphabet
 from shortuuid.main import ShortUUID
 from shortuuid.main import uuid
 
-
-try:
-    _DISTRIBUTION_METADATA = importlib.metadata.metadata("shortuuid")
-    __version__ = _DISTRIBUTION_METADATA["Version"]
-except Exception:
-    __version__ = "0.0.0"
+__version__ = "1.0.5"

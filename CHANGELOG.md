@@ -1,6 +1,13 @@
 # Changelog
 
 
+## Unreleased
+
+### Fixes
+
+* Fix slow loading times from using pkg_resources (fixes #59) [Stavros Korokithakis]
+
+
 ## v1.0.4 (2021-11-08)
 
 ### Fixes
