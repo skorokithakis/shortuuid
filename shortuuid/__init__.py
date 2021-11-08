@@ -7,4 +7,4 @@ from shortuuid.main import set_alphabet
 from shortuuid.main import ShortUUID
 from shortuuid.main import uuid
 
-__version__ = "1.0.5"
+__version__ = "1.0.6"
