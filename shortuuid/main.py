@@ -1,4 +1,4 @@
-""" Concise UUID generation. """
+"""Concise UUID generation."""
 import binascii
 import math
 import os
@@ -8,6 +8,7 @@ import uuid as _uu
 def int_to_string(number, alphabet, padding=None):
     """
     Convert a number to a string, using the given alphabet.
+
     The output has the most significant digit first.
     """
     output = ""
@@ -24,6 +25,7 @@ def int_to_string(number, alphabet, padding=None):
 def string_to_int(string, alphabet):
     """
     Convert a string to a number, using the given alphabet.
+
     The input is assumed to have the most significant digit first.
     """
     number = 0
@@ -36,21 +38,20 @@ def string_to_int(string, alphabet):
 class ShortUUID(object):
     def __init__(self, alphabet=None):
         if alphabet is None:
-            alphabet = list("23456789ABCDEFGHJKLMNPQRSTUVWXYZ" "abcdefghijkmnopqrstuvwxyz")
+            alphabet = list(
+                "23456789ABCDEFGHJKLMNPQRSTUVWXYZ" "abcdefghijkmnopqrstuvwxyz"
+            )
 
         self.set_alphabet(alphabet)
 
     @property
     def _length(self):
-        """
-        Return the necessary length to fit the entire UUID given
-        the current alphabet.
-        """
+        """Return the necessary length to fit the entire UUID given the current alphabet."""
         return int(math.ceil(math.log(2 ** 128, self._alpha_len)))
 
     def encode(self, uuid, pad_length=None):
         """
-        Encode a UUID into a string (LSB first) according to the alphabet
+        Encode a UUID into a string (LSB first) according to the alphabet.
 
         If leftmost (MSB) bits are 0, the string might be shorter.
         """
@@ -62,14 +63,14 @@ class ShortUUID(object):
 
     def decode(self, string, legacy=False):
         """
-        Decode a string according to the current alphabet into a UUID
-        Raises ValueError when encountering illegal characters
-        or a too-long string.
+        Decode a string according to the current alphabet into a UUID.
+
+        Raises ValueError when encountering illegal characters or a too-long string.
 
         If string too short, fills leftmost (MSB) bits with 0.
 
-        Pass `legacy=True` if your UUID was encoded with a ShortUUID version
-        prior to 1.0.0.
+        Pass `legacy=True` if your UUID was encoded with a ShortUUID version prior to
+        1.0.0.
         """
         if not isinstance(string, str):
             raise ValueError("Input `string` must be a str.")
@@ -97,10 +98,7 @@ class ShortUUID(object):
         return self.encode(u, pad_length)
 
     def random(self, length=None):
-        """
-        Generate and return a cryptographically-secure short random string
-        of the specified length.
-        """
+        """Generate and return a cryptographically secure short random string of `length`."""
         if length is None:
             length = self._length
 
@@ -113,7 +111,6 @@ class ShortUUID(object):
 
     def set_alphabet(self, alphabet):
         """Set the alphabet to be used for new UUIDs."""
-
         # Turn the alphabet into a set and sort it to prevent duplicates
         # and ensure reproducibility.
         new_alphabet = list(sorted(set(alphabet)))
@@ -124,9 +121,7 @@ class ShortUUID(object):
             raise ValueError("Alphabet with more than " "one unique symbols required.")
 
     def encoded_length(self, num_bytes=16):
-        """
-        Returns the string length of the shortened UUID.
-        """
+        """Return the string length of the shortened UUID."""
         factor = math.log(256) / math.log(self._alpha_len)
         return int(math.ceil(factor * num_bytes))
 

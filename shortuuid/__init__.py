@@ -1,5 +1,6 @@
 # flake8: noqa
 import pkg_resources
+
 from shortuuid.main import decode
 from shortuuid.main import encode
 from shortuuid.main import get_alphabet

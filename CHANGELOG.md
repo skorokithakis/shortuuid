@@ -1,6 +1,17 @@
 # Changelog
 
 
+## v1.0.2 (2021-11-08)
+
+### Features
+
+* Added basic input type validation to encode and decode (#49) [Ivan Savov]
+
+### Fixes
+
+* Use sys.version_info since sys.version returns string that interprets 3.10 as 3.1 in comparison. (#54) [Karthikeyan Singaravelan]
+
+
 ## v1.0.1 (2020-03-06)
 
 ### Fixes

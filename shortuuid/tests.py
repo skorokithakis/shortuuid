@@ -117,7 +117,9 @@ class ClassShortUUIDTest(unittest.TestCase):
         su1 = ShortUUID()
         self.assertEqual(su1.encoded_length(), 22)
 
-        base64_alphabet = string.ascii_uppercase + string.ascii_lowercase + string.digits + "+/"
+        base64_alphabet = (
+            string.ascii_uppercase + string.ascii_lowercase + string.digits + "+/"
+        )
 
         su2 = ShortUUID(base64_alphabet)
         self.assertEqual(su2.encoded_length(), 22)
