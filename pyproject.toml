@@ -9,11 +9,14 @@ classifiers = [
   "Programming Language :: Python :: 3.5",
   "Programming Language :: Python :: 3.6",
   "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
   "Topic :: Software Development :: Libraries :: Python Modules"
 ]
-homepage = "https://github.com/stochastic-technologies/shortuuid/"
-authors = ["Stochastic Technologies <info@stochastictechnologies.com>"]
-readme = "README.rst"
+homepage = "https://github.com/skorokithakis/shortuuid/"
+authors = ["Stavros Korokithakis <hi@stavros.io>"]
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.5"

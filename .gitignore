@@ -5,4 +5,5 @@
 .mypy_cache/
 .eggs/
 .pytest_cache/
+dist/
 poetry.lock
