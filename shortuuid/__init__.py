@@ -1,5 +1,5 @@
 # flake8: noqa
-import pkg_resources
+import importlib.metadata
 
 from shortuuid.main import decode
 from shortuuid.main import encode
@@ -9,7 +9,9 @@ from shortuuid.main import set_alphabet
 from shortuuid.main import ShortUUID
 from shortuuid.main import uuid
 
+
 try:
-    __version__ = pkg_resources.get_distribution("shortuuid").version
-except pkg_resources.DistributionNotFound:
+    _DISTRIBUTION_METADATA = importlib.metadata.metadata("shortuuid")
+    __version__ = _DISTRIBUTION_METADATA["Version"]
+except Exception:
     __version__ = "0.0.0"
