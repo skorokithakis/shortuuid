@@ -163,14 +163,21 @@ from shortuuid.django_fields import ShortUUIDField
 
 class MyModel(models.Model):
     # A primary key ID of length 16 and a short alphabet.
-    id = ShortUUIDField(length=16, alphabet="abcdefg1234", primary_key=True)
+    id = ShortUUIDField(
+        length=16,
+        max_length=40,
+        prefix="id_",
+        alphabet="abcdefg1234",
+        primary_key=True,
+    )
+
     # A short UUID of length 22 and the default alphabet.
     api_key = ShortUUIDField()
 ```
 
-The field is the same as the `CharField`, with `max_length` replaced with `length`, an
-`alphabet` argument added and the `default` argument removed. Everything else is exactly
-the same, e.g. `index`, `help_text`, etc.
+The field is the same as the `CharField`, with a `length` argument (the length of the
+ID), an `alphabet` argument, and the `default` argument removed. Everything else is
+exactly the same, e.g. `index`, `help_text`, `max_length`, etc.
 
 
 Compatibility note

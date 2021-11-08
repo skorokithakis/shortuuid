@@ -8,7 +8,13 @@ class ShortUUIDField(models.CharField):
     description = _("A short UUID field.")
 
     def __init__(self, *args, **kwargs):
-        self.length = kwargs["max_length"] = kwargs.pop("length", 22)
+        self.length = kwargs.pop("length", 22)
+        self.prefix = kwargs.pop("prefix", "")
+
+        if "max_length" not in kwargs:
+            # If `max_length` was not specified, set it here.
+            kwargs["max_length"] = self.length
+
         self.alphabet = kwargs.pop("alphabet", None)
         kwargs["default"] = self._generate_uuid
 
@@ -16,11 +22,14 @@ class ShortUUIDField(models.CharField):
 
     def _generate_uuid(self):
         """Generate a short random string."""
-        return ShortUUID(alphabet=self.alphabet).random(length=self.length)
+        return self.prefix + ShortUUID(alphabet=self.alphabet).random(
+            length=self.length
+        )
 
     def deconstruct(self):
         name, path, args, kwargs = super().deconstruct()
         kwargs["alphabet"] = self.alphabet
-        kwargs["length"] = kwargs.pop("max_length")
+        kwargs["length"] = self.length
+        kwargs["prefix"] = self.prefix
         kwargs.pop("default", None)
         return name, path, args, kwargs
