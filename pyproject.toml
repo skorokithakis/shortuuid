@@ -19,4 +19,4 @@ authors = ["Stavros Korokithakis <hi@stavros.io>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.5"
+python = ">=3.5"
