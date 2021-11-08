@@ -6,4 +6,4 @@ from shortuuid.main import set_alphabet  # noqa
 from shortuuid.main import ShortUUID  # noqa
 from shortuuid.main import uuid  # noqa
 
-__version__ = "1.0.6"
+__version__ = "1.0.7"
