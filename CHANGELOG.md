@@ -5,6 +5,8 @@
 
 ### Fixes
 
+* Don't try to get the version from the pyproject.toml, as it's a hassle. [Stavros Korokithakis]
+
 * Fix slow loading times from using pkg_resources (fixes #59) [Stavros Korokithakis]
 
 
