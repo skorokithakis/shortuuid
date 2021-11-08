@@ -1,6 +1,13 @@
 # Changelog
 
 
+## Unreleased
+
+### Features
+
+* Add `prefix` and `max_length` to the Django field. [Stavros Korokithakis]
+
+
 ## v1.0.6 (2021-11-08)
 
 ### Fixes
