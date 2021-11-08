@@ -1,6 +1,4 @@
 # flake8: noqa
-import importlib.metadata
-
 from shortuuid.main import decode
 from shortuuid.main import encode
 from shortuuid.main import get_alphabet
