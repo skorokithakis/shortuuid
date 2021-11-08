@@ -1,6 +1,13 @@
 # Changelog
 
 
+## Unreleased
+
+### Fixes
+
+* Fix the cli interface that the previous release broke. [Stavros Korokithakis]
+
+
 ## v1.0.3 (2021-11-08)
 
 ### Features
