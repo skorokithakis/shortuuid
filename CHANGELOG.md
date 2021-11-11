@@ -1,6 +1,13 @@
 # Changelog
 
 
+## Unreleased
+
+### Fixes
+
+* Include the COPYING file in releases. [Stavros Korokithakis]
+
+
 ## v1.0.7 (2021-11-08)
 
 ### Features
