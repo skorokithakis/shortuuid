@@ -17,6 +17,7 @@ classifiers = [
 homepage = "https://github.com/skorokithakis/shortuuid/"
 authors = ["Stavros Korokithakis <hi@stavros.io>"]
 readme = "README.md"
+include = ["COPYING"]
 
 [tool.poetry.scripts]
 shortuuid = "shortuuid:cli.main"
