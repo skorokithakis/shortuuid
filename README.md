@@ -145,11 +145,9 @@ Command-line usage
 `shortuuid` provides a simple way to generate a short UUID in a terminal:
 
 ```bash
-$ python3 -m shortuuid
+$ shortuuid
 fZpeF6gcskHbSpTgpQCkcJ
 ```
-
-(Replace `python3` with `py` if you are using Windows).
 
 
 Django field
