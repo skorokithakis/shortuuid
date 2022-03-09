@@ -51,10 +51,10 @@ UUID:
 
 ```python
 >>> shortuuid.uuid(name="example.com")
-'wpsWLdLt9nscn2jbTD3uxe'
+'exu3DTbj2ncsn9tLdLWspw'
 
 >>> shortuuid.uuid(name="<http://example.com>")
-'c8sh5y9hdSMS6zVnrvf53T'
+'shortuuid.uuid(name="<http://example.com>")'
 ```
 
 You can also generate a cryptographically secure random string (using `os.urandom()`
@@ -102,17 +102,17 @@ UUID('6ca4f0f8-2508-4bac-b8f1-5d1e3da2247a')
 
 >>> s = shortuuid.encode(u)
 >>> s
-'cu8Eo9RyrUsV4MXEiDZpLM'
+'MLpZDiEXM4VsUryR9oE8uc'
 
 >>> shortuuid.decode(s) == u
 True
 
 >>> short = s[:7]
 >>> short
-'cu8Eo9R'
+'MLpZDiE'
 
 >>> h = shortuuid.decode(short)
-UUID('00000000-0000-0000-0000-00b8c0b9f952')
+UUID('00000000-0000-0000-0000-009a5b27f8b9')
 
 >>> shortuuid.decode(shortuuid.encode(h)) == h
 True
