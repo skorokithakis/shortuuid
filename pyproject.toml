@@ -24,3 +24,8 @@ shortuuid = "shortuuid:cli.main"
 
 [tool.poetry.dependencies]
 python = ">=3.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
