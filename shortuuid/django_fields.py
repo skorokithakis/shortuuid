@@ -13,7 +13,7 @@ class ShortUUIDField(models.CharField):
 
         if "max_length" not in kwargs:
             # If `max_length` was not specified, set it here.
-            kwargs["max_length"] = self.length
+            kwargs["max_length"] = self.length + len(self.prefix)
 
         self.alphabet = kwargs.pop("alphabet", None)
         kwargs["default"] = self._generate_uuid
