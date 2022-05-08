@@ -1,6 +1,13 @@
 # Changelog
 
 
+## Unreleased
+
+### Fixes
+
+* Correctly account for length when prefix is used (fixes #71) [Stavros Korokithakis]
+
+
 ## v1.0.8 (2021-11-11)
 
 ### Fixes
@@ -62,18 +69,11 @@
 
 * Drop support for Python before 3.5. [Stavros Korokithakis]
 
-### Fixes
-
-* Use README as the long description on PyPI. [Stavros Korokithakis]
-
-
-## v1.0.0 (2020-03-05)
-
-### Features
-
 * Add simple command-line interface (#43) [Éric Araujo]
 
 ### Fixes
+
+* Use README as the long description on PyPI. [Stavros Korokithakis]
 
 * Make encode and decode MSB-first (#36) [Keane Nguyen]
 
