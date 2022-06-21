@@ -4,8 +4,10 @@ import math
 import os
 import uuid as _uu
 
+from typing import List, Optional
 
-def int_to_string(number, alphabet, padding=None):
+
+def int_to_string(number: int, alphabet: List[str], padding: Optional[int] = None) -> str:
     """
     Convert a number to a string, using the given alphabet.
 
@@ -22,7 +24,7 @@ def int_to_string(number, alphabet, padding=None):
     return output[::-1]
 
 
-def string_to_int(string, alphabet):
+def string_to_int(string: str, alphabet: List[str]) -> int:
     """
     Convert a string to a number, using the given alphabet.
 
@@ -36,7 +38,7 @@ def string_to_int(string, alphabet):
 
 
 class ShortUUID(object):
-    def __init__(self, alphabet=None):
+    def __init__(self, alphabet: Optional[List[str]] = None) -> None:
         if alphabet is None:
             alphabet = list(
                 "23456789ABCDEFGHJKLMNPQRSTUVWXYZ" "abcdefghijkmnopqrstuvwxyz"
@@ -45,11 +47,11 @@ class ShortUUID(object):
         self.set_alphabet(alphabet)
 
     @property
-    def _length(self):
+    def _length(self) -> int:
         """Return the necessary length to fit the entire UUID given the current alphabet."""
         return int(math.ceil(math.log(2 ** 128, self._alpha_len)))
 
-    def encode(self, uuid, pad_length=None):
+    def encode(self, uuid: _uu.UUID, pad_length: Optional[int] = None) -> str:
         """
         Encode a UUID into a string (LSB first) according to the alphabet.
 
@@ -61,7 +63,7 @@ class ShortUUID(object):
             pad_length = self._length
         return int_to_string(uuid.int, self._alphabet, padding=pad_length)
 
-    def decode(self, string, legacy=False):
+    def decode(self, string: str, legacy: bool = False) -> _uu.UUID:
         """
         Decode a string according to the current alphabet into a UUID.
 
@@ -78,7 +80,7 @@ class ShortUUID(object):
             string = string[::-1]
         return _uu.UUID(int=string_to_int(string, self._alphabet))
 
-    def uuid(self, name=None, pad_length=None):
+    def uuid(self, name: Optional[str] = None, pad_length: Optional[int] = None) -> str:
         """
         Generate and return a UUID.
 
@@ -97,7 +99,7 @@ class ShortUUID(object):
             u = _uu.uuid5(_uu.NAMESPACE_DNS, name)
         return self.encode(u, pad_length)
 
-    def random(self, length=None):
+    def random(self, length: Optional[int] = None) -> str:
         """Generate and return a cryptographically secure short random string of `length`."""
         if length is None:
             length = self._length
@@ -105,11 +107,11 @@ class ShortUUID(object):
         random_num = int(binascii.b2a_hex(os.urandom(length)), 16)
         return int_to_string(random_num, self._alphabet, padding=length)[:length]
 
-    def get_alphabet(self):
+    def get_alphabet(self) -> str:
         """Return the current alphabet used for new UUIDs."""
         return "".join(self._alphabet)
 
-    def set_alphabet(self, alphabet):
+    def set_alphabet(self, alphabet: str) -> None:
         """Set the alphabet to be used for new UUIDs."""
         # Turn the alphabet into a set and sort it to prevent duplicates
         # and ensure reproducibility.
@@ -120,7 +122,7 @@ class ShortUUID(object):
         else:
             raise ValueError("Alphabet with more than " "one unique symbols required.")
 
-    def encoded_length(self, num_bytes=16):
+    def encoded_length(self, num_bytes: int = 16) -> int:
         """Return the string length of the shortened UUID."""
         factor = math.log(256) / math.log(self._alpha_len)
         return int(math.ceil(factor * num_bytes))

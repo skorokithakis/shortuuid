@@ -3,11 +3,13 @@ from django.utils.translation import gettext_lazy as _
 
 from . import ShortUUID
 
+from typing import Any, Dict, Tuple
+
 
 class ShortUUIDField(models.CharField):
     description = _("A short UUID field.")
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Tuple, **kwargs: Dict[str, Any]) -> None:
         self.length = kwargs.pop("length", 22)
         self.prefix = kwargs.pop("prefix", "")
 
@@ -20,13 +22,13 @@ class ShortUUIDField(models.CharField):
 
         super().__init__(*args, **kwargs)
 
-    def _generate_uuid(self):
+    def _generate_uuid(self) -> str:
         """Generate a short random string."""
         return self.prefix + ShortUUID(alphabet=self.alphabet).random(
             length=self.length
         )
 
-    def deconstruct(self):
+    def deconstruct(self) -> Tuple[str, str, Tuple, Dict[str, Any]]:
         name, path, args, kwargs = super().deconstruct()
         kwargs["alphabet"] = self.alphabet
         kwargs["length"] = self.length

@@ -1,5 +1,5 @@
 from .main import uuid
 
 
-def main():
+def main() -> None:
     print(uuid())
