@@ -2,7 +2,7 @@
 name = "shortuuid"
 version = "1.0.9"
 description = "A generator library for concise, unambiguous and URL-safe UUIDs."
-license = "BSD"
+license = "License :: OSI Approved :: BSD License"
 classifiers = [
   "License :: OSI Approved :: BSD License",
   "Programming Language :: Python",
