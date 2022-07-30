@@ -168,8 +168,8 @@ class MyModel(models.Model):
         alphabet="abcdefg1234",
         primary_key=True,
     )
-    # When ShortUUIDField is provided with a length parameter, a cryptographically secure but 
-    # NOT universally unique string is generated
+    # When ShortUUIDField is provided with a length parameter, a cryptographically secure 
+    # random but NOT universally unique string is generated
     random_field = ShortUUIDField(
         length=16,
         max_length=40,
@@ -178,7 +178,7 @@ class MyModel(models.Model):
         primary_key=True,
     )
 
-    # A short random cryptographically secure string of length 22 and the default alphabet.
+    # A short cryptographically secure random string of length 22 and the default alphabet.
     api_key = ShortUUIDField(length=22) 
 ```
 
