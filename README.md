@@ -160,8 +160,17 @@ your convenience:
 from shortuuid.django_fields import ShortUUIDField
 
 class MyModel(models.Model):
-    # A primary key ID of length 16 and a short alphabet.
+    # A primary key ID with a short alphabet.
+    # When ShortUUIDField is not provided with length, a uuid is generated
     id = ShortUUIDField(
+        max_length=40,
+        prefix="id_",
+        alphabet="abcdefg1234",
+        primary_key=True,
+    )
+    # When ShortUUIDField is provided with a length parameter, a cryptographically secure but 
+    # NOT universally unique string is generated
+    random_field = ShortUUIDField(
         length=16,
         max_length=40,
         prefix="id_",
@@ -169,13 +178,21 @@ class MyModel(models.Model):
         primary_key=True,
     )
 
-    # A short UUID of length 22 and the default alphabet.
-    api_key = ShortUUIDField()
+    # A short random cryptographically secure string of length 22 and the default alphabet.
+    api_key = ShortUUIDField(length=22) 
 ```
 
 The field is the same as the `CharField`, with a `length` argument (the length of the
-ID), an `alphabet` argument, and the `default` argument removed. Everything else is
-exactly the same, e.g. `index`, `help_text`, `max_length`, etc.
+ID for cryptographically secure random strings), an `alphabet` argument, and the `default` 
+argument removed. Everything else is exactly the same, e.g. `index`, `help_text`, `max_length`, 
+etc.
+
+If you do not provide a `length` parameter, the field will generate a default value using
+`ShortUUID.uuid` which will be universally unique.
+
+However, if you provide a `length` paramter, the field will genrate a default value using
+`ShortUUID.random` which WILL NOT BE universally unique.
+
 
 
 Compatibility note

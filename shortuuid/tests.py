@@ -2,6 +2,7 @@ import os
 import string
 import sys
 import unittest
+from unittest import mock
 from collections import defaultdict
 from uuid import UUID
 from uuid import uuid4
@@ -13,6 +14,7 @@ from shortuuid.main import random
 from shortuuid.main import set_alphabet
 from shortuuid.main import ShortUUID
 from shortuuid.main import uuid
+from shortuuid.django_fields import ShortUUIDField
 
 sys.path.insert(0, os.path.abspath(__file__ + "/../.."))
 
@@ -191,6 +193,102 @@ class DecodingEdgeCasesTest(unittest.TestCase):
         self.assertRaises(ValueError, su.decode, (2,))
         self.assertRaises(ValueError, su.decode, 42)
         self.assertRaises(ValueError, su.decode, 42.0)
+
+
+class ShortUUIDFieldTest(unittest.TestCase):
+    def test_when_length_provided_use_ShortUUID_random(self):
+        length, prefix, alphabet = 22, "pf", list('abcdefghijk')
+
+        field = ShortUUIDField(length=length, prefix=prefix, alphabet=alphabet)
+
+        self.assertEqual(field.alphabet, alphabet)
+        self.assertEqual(field.length, length)
+        self.assertEqual(field.prefix, prefix)
+        self.assertEqual(field.max_length, length + len(prefix))
+        self.assertEqual(field.default, field._generate_random)
+
+    def test_generate_random(self):
+        length, prefix, alphabet = 22, "pf", list('abcdefghijk')
+
+        field = ShortUUIDField(length=length, prefix=prefix, alphabet=alphabet)
+
+        random = field._generate_random()
+
+        self.assertEqual(len(random), length + len(prefix))
+        self.assertTrue(random.startswith(prefix))
+        self.assert_all_characters_from_alphabet(random[len(prefix):], alphabet)
+
+    def test_max_length_too_small_for_random(self):
+        length, prefix, alphabet = 22, "pf", list('abcdefghijk')
+
+        required_length = length + len(prefix)
+
+        with self.assertRaises(Exception) as cm:
+            ShortUUIDField(prefix=prefix, alphabet=alphabet, length=length, max_length=required_length - 1)
+        self.assertEqual(str(cm.exception), f"max_length too small to fit generated random of length {required_length} (including prefix)")
+
+    @mock.patch('shortuuid.django_fields.ShortUUID')
+    def test_generate_random_actually_calls_random(self, short_uuid: mock.Mock):
+        length, alphabet = 22, list('abcdefghijk')
+        instance_mock = mock.MagicMock()
+        short_uuid.return_value = instance_mock
+        field = ShortUUIDField(length=length, alphabet=alphabet)
+
+        field._generate_random()
+
+        short_uuid.assert_called_once_with(alphabet=alphabet)
+        instance_mock.random.assert_called_once_with(length=length)
+
+    def test_when_no_length_provided_use_ShortUUID_uuid(self):
+        prefix, alphabet = "pf", list('abcdefghijk')
+
+        field = ShortUUIDField(prefix=prefix, alphabet=alphabet)
+
+        self.assertEqual(field.alphabet, alphabet)
+        self.assertEqual(field.length, None)
+        self.assertEqual(field.prefix, prefix)
+        self.assertEqual(field.max_length, len(prefix) + ShortUUID(alphabet=alphabet)._length)
+        self.assertEqual(field.default, field._generate_uuid)
+
+    def test_max_length_too_small_for_uuid(self):
+        prefix, alphabet = "pf", list('abcdefghijk')
+
+        required_length = ShortUUID(alphabet=alphabet)._length + len(prefix)
+
+        with self.assertRaises(Exception) as cm:
+            ShortUUIDField(prefix=prefix, alphabet=alphabet, max_length=required_length - 1)
+        self.assertEqual(str(cm.exception), f"max_length too small to fit generated UUID of length {required_length} (including prefix)")
+
+    @mock.patch('shortuuid.django_fields.ShortUUID')
+    def test_generate_uuid_actually_calls_uuid(self, short_uuid: mock.Mock):
+        length, alphabet = 22, list('abcdefghijk')
+        instance_mock = mock.MagicMock()
+        short_uuid.return_value = instance_mock
+        field = ShortUUIDField(length=length, alphabet=alphabet)
+
+        field._generate_uuid()
+
+        short_uuid.assert_called_once_with(alphabet=alphabet)
+        instance_mock.uuid.assert_called_once()
+
+    def test_generate_uuid(self):
+        length, prefix, alphabet = 22, "pf", list('abcdefghijk')
+
+        field = ShortUUIDField(length=length, prefix=prefix, alphabet=alphabet)
+        shortuuid = ShortUUID(alphabet=alphabet)
+        required_length = len(prefix) + shortuuid._length
+
+        generated_uuid = field._generate_uuid()
+
+        self.assertEqual(len(generated_uuid), required_length)
+        self.assert_all_characters_from_alphabet(generated_uuid[len(prefix):], alphabet)
+
+        decoded_uuid = shortuuid.decode(generated_uuid[len(prefix):])
+
+        self.assertEqual(decoded_uuid.__class__, UUID)
+
+    def assert_all_characters_from_alphabet(self, test_string, alphabet):
+        [self.assertTrue(c in alphabet) for c in test_string]
 
 
 if __name__ == "__main__":
