@@ -190,7 +190,7 @@ etc.
 If you do not provide a `length` parameter, the field will generate a default value using
 `ShortUUID.uuid` which will be universally unique.
 
-However, if you provide a `length` paramter, the field will genrate a default value using
+However, if you provide a `length` parameter, the field will genrate a default value using
 `ShortUUID.random` which WILL NOT BE universally unique.
 
 
