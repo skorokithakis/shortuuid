@@ -7,6 +7,7 @@ from unittest.mock import patch
 from uuid import UUID
 from uuid import uuid4
 
+from shortuuid.cli import cli
 from shortuuid.cli import main as cli_main
 from shortuuid.main import decode
 from shortuuid.main import encode
@@ -204,6 +205,20 @@ class CliTest(unittest.TestCase):
         mock_print.assert_called()
         terminal_output = mock_print.call_args[0][0]
         self.assertEqual(len(terminal_output), 22)
+
+    @patch("shortuuid.cli.print")
+    def test_encode_command(self, mock_print):
+        cli(["encode", "3b1f8b40-222c-4a6e-b77e-779d5a94e21c"])
+
+        terminal_output = mock_print.call_args[0][0]
+        self.assertEqual(terminal_output, "CXc85b4rqinB7s5J52TRYb")
+
+    @patch("shortuuid.cli.print")
+    def test_decode_command(self, mock_print):
+        cli(["decode", "CXc85b4rqinB7s5J52TRYb"])
+
+        terminal_output = mock_print.call_args[0][0]
+        self.assertEqual(terminal_output, "3b1f8b40-222c-4a6e-b77e-779d5a94e21c")
 
 
 if __name__ == "__main__":

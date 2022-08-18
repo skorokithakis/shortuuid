@@ -5,6 +5,8 @@
 
 ### Features
 
+* Use argparse in cli. [tim]
+
 * Add type hinting (#77) [Pablo Collado]
 
 
