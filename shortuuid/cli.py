@@ -17,16 +17,17 @@ def decode_cli(args:argparse.Namespace):
 
 
 def cli(*args: Any) -> None:
-    parser = argparse.ArgumentParser(description='Print a random shortuuid')
+    parser = argparse.ArgumentParser(description='Generate, encode and decode shortuuids',
+    epilog='top-level command generates a random shortuuid')
 
     subparsers = parser.add_subparsers(help='sub-command help')
 
-    encode_parser = subparsers.add_parser('encode', help='encode help')
-    encode_parser.add_argument('uuid', type=UUID, help='A uuid to encode')
+    encode_parser = subparsers.add_parser('encode', help='Encode a UUID into a string', description=encode.__doc__)
+    encode_parser.add_argument('uuid', type=UUID, help='UUID to be encoded')
     encode_parser.set_defaults(func=encode_cli)
 
-    decode_parser = subparsers.add_parser('decode', help='decode help')
-    decode_parser.add_argument('shortuuid', type=str, help='A shortuuid to decode to a uuid')
+    decode_parser = subparsers.add_parser('decode', help='Decode a string', description=decode.__doc__)
+    decode_parser.add_argument('string', type=str, help='string to be decoded')
     decode_parser.add_argument('--legacy', action='store_true')
     decode_parser.set_defaults(func=decode_cli)
 

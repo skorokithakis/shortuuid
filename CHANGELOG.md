@@ -5,6 +5,8 @@
 
 ### Features
 
+* Add encode and decode to cli. [tim]
+
 * Use argparse in cli. [tim]
 
 * Add type hinting (#77) [Pablo Collado]
