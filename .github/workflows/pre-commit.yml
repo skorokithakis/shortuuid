@@ -14,7 +14,9 @@ jobs:
     - uses: pre-commit/action@v3.0.0
       with:
         extra_args: -a --hook-stage=manual
-  pytest:
+  test:
+    runs-on: ubuntu-latest
+    steps:
     - name: Run pytest
       uses: pavelzw/pytest-action@v1
       with:
