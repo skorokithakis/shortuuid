@@ -22,5 +22,5 @@ jobs:
       with:
         verbose: true
         emoji: true
-        job-summary: true
-        custom-arguments: '-q'
+        job_summary: true
+        custom_arguments: '-q'
