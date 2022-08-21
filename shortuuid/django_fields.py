@@ -1,24 +1,26 @@
+from typing import Any
+from typing import Dict
+from typing import Tuple
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from . import ShortUUID
-
-from typing import Any, Dict, Tuple
 
 
 class ShortUUIDField(models.CharField):
     description = _("A short UUID field.")
 
     def __init__(self, *args: Tuple, **kwargs: Dict[str, Any]) -> None:
-        self.length = kwargs.pop("length", 22)
-        self.prefix = kwargs.pop("prefix", "")
+        self.length: int = kwargs.pop("length", 22)  # type: ignore
+        self.prefix: str = kwargs.pop("prefix", "")  # type: ignore
 
         if "max_length" not in kwargs:
             # If `max_length` was not specified, set it here.
-            kwargs["max_length"] = self.length + len(self.prefix)
+            kwargs["max_length"] = self.length + len(self.prefix)  # type: ignore
 
-        self.alphabet = kwargs.pop("alphabet", None)
-        kwargs["default"] = self._generate_uuid
+        self.alphabet: str = kwargs.pop("alphabet", None)  # type: ignore
+        kwargs["default"] = self._generate_uuid  # type: ignore
 
         super().__init__(*args, **kwargs)
 

@@ -3,11 +3,13 @@ import binascii
 import math
 import os
 import uuid as _uu
+from typing import List
+from typing import Optional
 
-from typing import List, Optional
 
-
-def int_to_string(number: int, alphabet: List[str], padding: Optional[int] = None) -> str:
+def int_to_string(
+    number: int, alphabet: List[str], padding: Optional[int] = None
+) -> str:
     """
     Convert a number to a string, using the given alphabet.
 
@@ -38,18 +40,16 @@ def string_to_int(string: str, alphabet: List[str]) -> int:
 
 
 class ShortUUID(object):
-    def __init__(self, alphabet: Optional[List[str]] = None) -> None:
+    def __init__(self, alphabet: Optional[str] = None) -> None:
         if alphabet is None:
-            alphabet = list(
-                "23456789ABCDEFGHJKLMNPQRSTUVWXYZ" "abcdefghijkmnopqrstuvwxyz"
-            )
+            alphabet = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ" "abcdefghijkmnopqrstuvwxyz"
 
         self.set_alphabet(alphabet)
 
     @property
     def _length(self) -> int:
         """Return the necessary length to fit the entire UUID given the current alphabet."""
-        return int(math.ceil(math.log(2 ** 128, self._alpha_len)))
+        return int(math.ceil(math.log(2**128, self._alpha_len)))
 
     def encode(self, uuid: _uu.UUID, pad_length: Optional[int] = None) -> str:
         """
