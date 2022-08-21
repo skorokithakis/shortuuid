@@ -25,15 +25,15 @@ def cli(*args: Any) -> None:
     subparsers = parser.add_subparsers(help="sub-command help")
 
     encode_parser = subparsers.add_parser(
-        "encode", help="Encode a UUID into a string", description=encode.__doc__
+        "encode", help="Encode a UUID into a short UUID", description=encode.__doc__
     )
     encode_parser.add_argument("uuid", type=UUID, help="UUID to be encoded")
     encode_parser.set_defaults(func=encode_cli)
 
     decode_parser = subparsers.add_parser(
-        "decode", help="Decode a string", description=decode.__doc__
+        "decode", help="Decode a short UUID into a UUID", description=decode.__doc__
     )
-    decode_parser.add_argument("string", type=str, help="string to be decoded")
+    decode_parser.add_argument("shortuuid", type=str, help="Short UUID to be decoded")
     decode_parser.add_argument("--legacy", action="store_true")
     decode_parser.set_defaults(func=decode_cli)
 
