@@ -40,5 +40,5 @@ def cli(*args: Any) -> None:
         print(uuid())
 
 
-def main() -> None:
+if __name__ == "__main__":
     cli(sys.argv[1:])
