@@ -3,6 +3,13 @@
 
 ## Unreleased
 
+### Features
+
+* Add type hinting (#77) [Pablo Collado]
+
+
+## v1.0.9 (2022-05-08)
+
 ### Fixes
 
 * Correctly account for length when prefix is used (fixes #71) [Stavros Korokithakis]
@@ -69,11 +76,18 @@
 
 * Drop support for Python before 3.5. [Stavros Korokithakis]
 
-* Add simple command-line interface (#43) [Éric Araujo]
-
 ### Fixes
 
 * Use README as the long description on PyPI. [Stavros Korokithakis]
+
+
+## v1.0.0 (2020-03-05)
+
+### Features
+
+* Add simple command-line interface (#43) [Éric Araujo]
+
+### Fixes
 
 * Make encode and decode MSB-first (#36) [Keane Nguyen]
 
