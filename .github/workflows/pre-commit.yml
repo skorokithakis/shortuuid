@@ -14,13 +14,3 @@ jobs:
     - uses: pre-commit/action@v3.0.0
       with:
         extra_args: -a --hook-stage=manual
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Run pytest
-      uses: pavelzw/pytest-action@v1
-      with:
-        verbose: true
-        emoji: true
-        job_summary: true
-        custom_arguments: '-q'
