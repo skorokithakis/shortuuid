@@ -14,3 +14,11 @@ jobs:
     - uses: pre-commit/action@v3.0.0
       with:
         extra_args: -a --hook-stage=manual
+  pytest:
+    - name: Run pytest
+      uses: pavelzw/pytest-action@v1
+      with:
+        verbose: true
+        emoji: true
+        job-summary: true
+        custom-arguments: '-q'
