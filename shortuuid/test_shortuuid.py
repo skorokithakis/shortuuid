@@ -199,7 +199,7 @@ class CliTest(unittest.TestCase):
     @patch("shortuuid.cli.print")
     def test_shortuuid_command_produces_uuid(self, mock_print):
         # When we call the main cli function
-        cli()
+        cli([])
         # Then a shortuuid is printed out
         mock_print.assert_called()
         terminal_output = mock_print.call_args[0][0]
