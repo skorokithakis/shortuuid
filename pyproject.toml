@@ -20,7 +20,7 @@ readme = "README.md"
 include = ["COPYING"]
 
 [tool.poetry.scripts]
-shortuuid = "shortuuid:cli.main"
+shortuuid = "shortuuid.cli:cli"
 
 [tool.poetry.dependencies]
 python = ">=3.5"
@@ -28,4 +28,3 @@ python = ">=3.5"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
