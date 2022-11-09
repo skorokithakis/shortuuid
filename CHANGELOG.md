@@ -11,6 +11,8 @@
 
 ### Fixes
 
+* Forgot to bump the version, oops. [Stavros Korokithakis]
+
 * Fix type annotations. [Stavros Korokithakis]
 
 
