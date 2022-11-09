@@ -1,7 +1,7 @@
 # Changelog
 
 
-## Unreleased
+## v1.0.10 (2022-11-09)
 
 ### Features
 
