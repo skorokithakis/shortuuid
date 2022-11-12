@@ -8,11 +8,11 @@ from shortuuid.main import uuid
 
 __version__ = "1.0.10"
 __all__ = [
-    "decode", 
-    "encode", 
-    "get_alphabet", 
-    "random", 
-    "set_alphabet", 
-    "ShortUUID", 
+    "decode",
+    "encode",
+    "get_alphabet",
+    "random",
+    "set_alphabet",
+    "ShortUUID",
     "uuid",
 ]
