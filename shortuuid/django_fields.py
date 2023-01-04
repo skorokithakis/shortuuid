@@ -11,7 +11,7 @@ from . import ShortUUID
 class ShortUUIDField(models.CharField):
     description = _("A short UUID field.")
 
-    def __init__(self, *args: Tuple, **kwargs: Dict[str, Any]) -> None:
+    def __init__(self, *args: Tuple, **kwargs: Any) -> None:
         self.length: int = kwargs.pop("length", 22)  # type: ignore
         self.prefix: str = kwargs.pop("prefix", "")  # type: ignore
 
