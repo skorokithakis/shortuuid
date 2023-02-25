@@ -80,6 +80,8 @@ If you want to use your own alphabet to generate UUIDs, use `set_alphabet()`:
 '0agee20aa1hehebcagddhedddc0d2chhab3b'
 ```
 
+The default alphabet matches the regex `[2-9A-HJ-NP-Za-km-z]{22}`.
+
 `shortuuid` will automatically sort and remove duplicates from your alphabet to ensure
 consistency:
 
