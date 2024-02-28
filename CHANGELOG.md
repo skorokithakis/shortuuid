@@ -1,6 +1,13 @@
 # Changelog
 
 
+## Unreleased
+
+### Fixes
+
+* Annotate *args as Any (#95) [Kamil Essekkat]
+
+
 ## v1.0.10 (2022-11-09)
 
 ### Features
