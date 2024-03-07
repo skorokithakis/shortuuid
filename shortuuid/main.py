@@ -3,6 +3,7 @@ import binascii
 import math
 import os
 import uuid as _uu
+import secrets
 from typing import List
 from typing import Optional
 
@@ -104,8 +105,11 @@ class ShortUUID(object):
         if length is None:
             length = self._length
 
-        random_num = int(binascii.b2a_hex(os.urandom(length)), 16)
-        return int_to_string(random_num, self._alphabet, padding=length)[:length]
+        random_shortuuid = ""
+        while len(random_shortuuid) < length:
+            random_shortuuid += secrets.choice(self._alphabet)
+
+        return random_shortuuid
 
     def get_alphabet(self) -> str:
         """Return the current alphabet used for new UUIDs."""
