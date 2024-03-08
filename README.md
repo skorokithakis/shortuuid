@@ -18,7 +18,7 @@ Installation
 
 To install `shortuuid` you need:
 
--   Python 3.x.
+-   Python 3.6+
 
 If you have the dependencies, you have multiple options of installation:
 
