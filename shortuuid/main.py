@@ -1,9 +1,8 @@
 """Concise UUID generation."""
-import binascii
+
 import math
-import os
-import uuid as _uu
 import secrets
+import uuid as _uu
 from typing import List
 from typing import Optional
 
