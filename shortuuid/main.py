@@ -105,11 +105,7 @@ class ShortUUID(object):
         if length is None:
             length = self._length
 
-        random_shortuuid = ""
-        while len(random_shortuuid) < length:
-            random_shortuuid += secrets.choice(self._alphabet)
-
-        return random_shortuuid
+        return "".join(secrets.choice(self._alphabet) for _ in range(length))
 
     def get_alphabet(self) -> str:
         """Return the current alphabet used for new UUIDs."""
