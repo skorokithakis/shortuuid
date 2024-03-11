@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "shortuuid"
-version = "1.0.12"
+version = "1.0.13"
 description = "A generator library for concise, unambiguous and URL-safe UUIDs."
 license = "BSD-3-Clause"
 classifiers = [
