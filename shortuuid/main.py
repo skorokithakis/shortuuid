@@ -40,11 +40,11 @@ def string_to_int(string: str, alphabet: List[str]) -> int:
 
 
 class ShortUUID(object):
-    def __init__(self, alphabet: Optional[str] = None) -> None:
+    def __init__(self, alphabet: Optional[str] = None, should_sort: Optional[bool] = True) -> None:
         if alphabet is None:
             alphabet = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ" "abcdefghijkmnopqrstuvwxyz"
 
-        self.set_alphabet(alphabet)
+        self.set_alphabet(alphabet, should_sort=should_sort)
 
     @property
     def _length(self) -> int:
@@ -110,11 +110,11 @@ class ShortUUID(object):
         """Return the current alphabet used for new UUIDs."""
         return "".join(self._alphabet)
 
-    def set_alphabet(self, alphabet: str) -> None:
+    def set_alphabet(self, alphabet: str, should_sort: bool=True) -> None:
         """Set the alphabet to be used for new UUIDs."""
         # Turn the alphabet into a set and sort it to prevent duplicates
         # and ensure reproducibility.
-        new_alphabet = list(sorted(set(alphabet)))
+        new_alphabet = list(sorted(set(alphabet)) if should_sort else list(dict.fromkeys(alphabet)))
         if len(new_alphabet) > 1:
             self._alphabet = new_alphabet
             self._alpha_len = len(self._alphabet)

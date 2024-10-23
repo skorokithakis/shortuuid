@@ -115,6 +115,29 @@ class ClassShortUUIDTest(unittest.TestCase):
         self.assertRaises(ValueError, su1.set_alphabet, "1")
         self.assertRaises(ValueError, su1.set_alphabet, "1111111")
 
+    def test_unsorted_alphabet(self):
+        alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
+
+        su1 = ShortUUID(alphabet, should_sort=False)
+        su2 = ShortUUID()
+
+        self.assertEqual(alphabet, su1.get_alphabet())
+
+        su2.set_alphabet(alphabet, should_sort=False)
+        self.assertEqual(alphabet, su2.get_alphabet())
+
+        su2.set_alphabet(alphabet + "123abc", should_sort=False)
+        self.assertEqual(alphabet, su2.get_alphabet())
+
+        u = uuid4()
+        self.assertEqual(u, su1.decode(su1.encode(u)))
+
+        u = su1.uuid()
+        self.assertEqual(u, su1.encode(su1.decode(u)))
+
+        self.assertRaises(ValueError, su1.set_alphabet, "1")
+        self.assertRaises(ValueError, su1.set_alphabet, "1111111")
+
     def test_encoded_length(self):
         su1 = ShortUUID()
         self.assertEqual(su1.encoded_length(), 22)
