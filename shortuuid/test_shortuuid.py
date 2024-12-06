@@ -118,15 +118,15 @@ class ClassShortUUIDTest(unittest.TestCase):
     def test_unsorted_alphabet(self):
         alphabet = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
 
-        su1 = ShortUUID(alphabet, should_sort=False)
+        su1 = ShortUUID(alphabet, dont_sort_alphabet=True)
         su2 = ShortUUID()
 
         self.assertEqual(alphabet, su1.get_alphabet())
 
-        su2.set_alphabet(alphabet, should_sort=False)
+        su2.set_alphabet(alphabet, dont_sort_alphabet=True)
         self.assertEqual(alphabet, su2.get_alphabet())
 
-        su2.set_alphabet(alphabet + "123abc", should_sort=False)
+        su2.set_alphabet(alphabet + "123abc", dont_sort_alphabet=True)
         self.assertEqual(alphabet, su2.get_alphabet())
 
         u = uuid4()
