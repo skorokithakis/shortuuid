@@ -90,6 +90,16 @@ consistency:
 '0123abcdefgh'
 ```
 
+You can prevent the alphabet from being sorted by passing the `dont_sort_alphabet` 
+keyword argument to `set_alphabet()`. This option ensures compatibility with different 
+implementations of ShortUUID:
+
+```python
+>>> shortuuid.set_alphabet("aaaaabcdefgh1230123", dont_sort_alphabet=True)
+>>> shortuuid.get_alphabet()
+'abcdefgh1230'
+```
+
 If the default 22 digits are too long for you, you can get shorter IDs by just
 truncating the string to the desired length. The IDs won't be universally unique any
 longer, but the probability of a collision will still be very low.
@@ -168,6 +178,7 @@ class MyModel(models.Model):
         max_length=40,
         prefix="id_",
         alphabet="abcdefg1234",
+        dont_sort_alphabet=False
         primary_key=True,
     )
 

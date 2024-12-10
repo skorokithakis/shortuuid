@@ -14,6 +14,7 @@ class ShortUUIDField(models.CharField):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         self.length: int = kwargs.pop("length", 22)  # type: ignore
         self.prefix: str = kwargs.pop("prefix", "")  # type: ignore
+        self.dont_sort_alphabet: bool = kwargs.pop("dont_sort_alphabet", False)  # type: ignore
 
         if "max_length" not in kwargs:
             # If `max_length` was not specified, set it here.
@@ -26,7 +27,7 @@ class ShortUUIDField(models.CharField):
 
     def _generate_uuid(self) -> str:
         """Generate a short random string."""
-        return self.prefix + ShortUUID(alphabet=self.alphabet).random(
+        return self.prefix + ShortUUID(alphabet=self.alphabet, dont_sort_alphabet=self.dont_sort_alphabet).random(
             length=self.length
         )
 
