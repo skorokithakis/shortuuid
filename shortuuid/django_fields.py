@@ -21,7 +21,7 @@ class ShortUUIDField(models.CharField):
             kwargs["max_length"] = self.length + len(self.prefix)  # type: ignore
 
         self.alphabet: str = kwargs.pop("alphabet", None)  # type: ignore
-        kwargs["default"] = kwargs["default"] if "default" in kwargs else self._generate_uuid  # type: ignore
+        kwargs["default"] = kwargs.get("default", self._generate_uuid)
 
         super().__init__(*args, **kwargs)
 
