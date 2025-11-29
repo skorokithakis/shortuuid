@@ -3,6 +3,17 @@
 
 ## Unreleased
 
+### Features
+
+* Allow compatibility with other ShortUUID libraries (#104) (#107) [Thiago Marinho]
+
+### Fixes
+
+* Don't install COPYING at top level of wheel (#105) [Colin Watson]
+
+
+## v1.0.13 (2024-03-11)
+
 ### Fixes
 
 * Improve randomness (#101) (#103) [hhartzer]
