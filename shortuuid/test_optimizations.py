@@ -6,11 +6,9 @@ implementations to ensure identical behavior.
 """
 
 from typing import List
-from typing import Optional
 from uuid import uuid4
 
-# Import optimized implementations
-from shortuuid.main import int_to_string as int_to_string_optimized
+from shortuuid.main import int_to_string
 from shortuuid.main import ShortUUID
 from shortuuid.main import string_to_int as string_to_int_optimized
 
@@ -18,21 +16,6 @@ from shortuuid.main import string_to_int as string_to_int_optimized
 # =============================================================================
 # Original (unoptimized) implementations for comparison
 # =============================================================================
-
-
-def int_to_string_original(
-    number: int, alphabet: List[str], padding: Optional[int] = None
-) -> str:
-    """Original O(n^2) implementation using string concatenation."""
-    output = ""
-    alpha_len = len(alphabet)
-    while number:
-        number, digit = divmod(number, alpha_len)
-        output += alphabet[digit]
-    if padding:
-        remainder = max(padding - len(output), 0)
-        output = output + alphabet[0] * remainder
-    return output[::-1]
 
 
 def string_to_int_original(string: str, alphabet: List[str]) -> int:
@@ -66,28 +49,6 @@ class TestOptimizationCorrectness:
         list("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"),  # Base64-like
     ]
 
-    def test_int_to_string_identical_results(self):
-        """Verify int_to_string produces identical output for all inputs."""
-        test_numbers = [
-            0,
-            1,
-            255,
-            65535,
-            2**32 - 1,
-            2**64 - 1,
-            2**128 - 1,  # Max UUID value
-        ]
-
-        for alphabet in self.ALPHABETS:
-            for number in test_numbers:
-                for padding in [None, 10, 22, 50]:
-                    original = int_to_string_original(number, alphabet, padding)
-                    optimized = int_to_string_optimized(number, alphabet, padding)
-                    assert original == optimized, (
-                        f"Mismatch for number={number}, alphabet_len={len(alphabet)}, "
-                        f"padding={padding}: '{original}' != '{optimized}'"
-                    )
-
     def test_string_to_int_identical_results(self):
         """Verify string_to_int produces identical output for all inputs."""
         for alphabet in self.ALPHABETS:
@@ -102,7 +63,7 @@ class TestOptimizationCorrectness:
             # Also test with encoded UUIDs
             for _ in range(10):
                 u = uuid4()
-                encoded = int_to_string_original(u.int, alphabet, padding=22)
+                encoded = int_to_string(u.int, alphabet, padding=22)
                 test_strings.append(encoded)
 
             alphabet_index = {char: idx for idx, char in enumerate(alphabet)}

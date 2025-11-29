@@ -10,29 +10,12 @@ Run with: python -m shortuuid.benchmark_optimizations
 import sys
 import timeit
 from typing import List
-from typing import Optional
 
-from shortuuid.main import int_to_string as int_to_string_optimized
 from shortuuid.main import ShortUUID
 from shortuuid.main import string_to_int as string_to_int_optimized
 
 
 # Original (unoptimized) implementations for comparison
-
-
-def int_to_string_original(
-    number: int, alphabet: List[str], padding: Optional[int] = None
-) -> str:
-    """Original O(n^2) implementation using string concatenation."""
-    output = ""
-    alpha_len = len(alphabet)
-    while number:
-        number, digit = divmod(number, alpha_len)
-        output += alphabet[digit]
-    if padding:
-        remainder = max(padding - len(output), 0)
-        output = output + alphabet[0] * remainder
-    return output[::-1]
 
 
 def string_to_int_original(string: str, alphabet: List[str]) -> int:
@@ -50,24 +33,6 @@ def get_alphabet_original(alphabet: List[str]) -> str:
 
 
 # Benchmarks
-
-
-def benchmark_int_to_string():
-    """Benchmark int_to_string: O(n^2) vs O(n)."""
-    alphabet = list("23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz")
-    test_number = 2**128 - 1  # Worst case: max UUID value
-
-    original_time = timeit.timeit(
-        lambda: int_to_string_original(test_number, alphabet, 22),
-        number=10000,
-    )
-
-    optimized_time = timeit.timeit(
-        lambda: int_to_string_optimized(test_number, alphabet, 22),
-        number=10000,
-    )
-
-    return original_time, optimized_time
 
 
 def benchmark_string_to_int():
@@ -143,17 +108,8 @@ def run_benchmarks():
     print("OPTIMIZATION BENCHMARKS")
     print("=" * 70)
 
-    # int_to_string
-    print("\n1. int_to_string (O(n^2) -> O(n))")
-    print("-" * 40)
-    orig, opt = benchmark_int_to_string()
-    speedup = orig / opt
-    print(f"   Original:  {orig*1000:.2f} ms (10k iterations)")
-    print(f"   Optimized: {opt*1000:.2f} ms (10k iterations)")
-    print(f"   Speedup:   {speedup:.1f}x faster")
-
     # string_to_int
-    print("\n2. string_to_int (O(m*n) -> O(m))")
+    print("\n1. string_to_int (O(m*n) -> O(m))")
     print("-" * 40)
     orig, opt_no_cache, opt_cached = benchmark_string_to_int()
     print(f"   Original (list.index):     {orig*1000:.2f} ms (10k iterations)")
@@ -163,7 +119,7 @@ def run_benchmarks():
     print(f"   Speedup (class-based):     {orig/opt_cached:.1f}x faster")
 
     # get_alphabet
-    print("\n3. get_alphabet (O(n) -> O(1))")
+    print("\n2. get_alphabet (O(n) -> O(1))")
     print("-" * 40)
     orig, opt = benchmark_get_alphabet()
     speedup = orig / opt
@@ -172,7 +128,7 @@ def run_benchmarks():
     print(f"   Speedup:   {speedup:.1f}x faster")
 
     # Memory overhead
-    print("\n4. Memory Overhead (per ShortUUID instance)")
+    print("\n3. Memory Overhead (per ShortUUID instance)")
     print("-" * 40)
     mem = measure_memory_overhead()
     print(f"   _alphabet_str:   {mem['alphabet_str_bytes']:4d} bytes")
@@ -183,10 +139,9 @@ def run_benchmarks():
     print("SUMMARY")
     print("=" * 70)
     print("""
-All optimizations trade a small amount of memory (~6 KB per instance)
+These optimizations trade a small amount of memory (~6 KB per instance)
 for significant CPU performance improvements:
 
-- int_to_string:  String concatenation -> list.append() + join()
 - string_to_int:  list.index() O(n) -> dict lookup O(1)
 - get_alphabet:   "".join() on every call -> return cached string
 
