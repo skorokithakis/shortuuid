@@ -16,16 +16,15 @@ def int_to_string(
 
     The output has the most significant digit first.
     """
+    output = ""
     alpha_len = len(alphabet)
-    digits = []  # type: List[str]
     while number:
         number, digit = divmod(number, alpha_len)
-        digits.append(alphabet[digit])
+        output += alphabet[digit]
     if padding:
-        remainder = max(padding - len(digits), 0)
-        digits.extend(alphabet[0] for _ in range(remainder))
-    digits.reverse()
-    return "".join(digits)
+        remainder = max(padding - len(output), 0)
+        output = output + alphabet[0] * remainder
+    return output[::-1]
 
 
 def string_to_int(
