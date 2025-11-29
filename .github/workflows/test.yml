@@ -24,12 +24,11 @@ jobs:
           vermin --target=3.6 --violations shortuuid/
 
   test:
-    name: Run tests (Python ${{ matrix.python-version }})
+    name: Run tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
         # Test on currently supported Python versions
-        # Python 3.7 is EOL and no longer available in GitHub Actions
         # Code compatibility with 3.6+ is verified via vermin above
         python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
     steps:
@@ -39,6 +38,13 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
-        run: pip install pytest
+        run: pip install pytest pytest-md pytest-emoji
       - name: Run pytest
-        run: pytest -v
+        uses: pavelzw/pytest-action@v2
+        with:
+          verbose: true
+          emoji: true
+          job-summary: true
+          custom-arguments: '-q'
+          click-to-expand: true
+          report-title: 'Test Report'
