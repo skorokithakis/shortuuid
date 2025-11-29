@@ -27,9 +27,9 @@ class ShortUUIDField(models.CharField):
 
     def _generate_uuid(self) -> str:
         """Generate a short random string."""
-        return self.prefix + ShortUUID(alphabet=self.alphabet, dont_sort_alphabet=self.dont_sort_alphabet).random(
-            length=self.length
-        )
+        return self.prefix + ShortUUID(
+            alphabet=self.alphabet, dont_sort_alphabet=self.dont_sort_alphabet
+        ).random(length=self.length)
 
     def deconstruct(self) -> Tuple[str, str, Tuple, Dict[str, Any]]:
         name, path, args, kwargs = super().deconstruct()
