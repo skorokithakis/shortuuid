@@ -136,7 +136,9 @@ class ShortUUID(object):
             self._alphabet = new_alphabet
             self._alphabet_str = "".join(new_alphabet)
             self._alpha_len = len(self._alphabet)
-            self._alphabet_index = {char: idx for idx, char in enumerate(self._alphabet)}
+            self._alphabet_index = {
+                char: idx for idx, char in enumerate(self._alphabet)
+            }
         else:
             raise ValueError("Alphabet with more than " "one unique symbols required.")
 
