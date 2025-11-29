@@ -6,26 +6,39 @@ on:
     branches: [master]
 
 jobs:
+  # Verify code is compatible with Python 3.6 syntax
+  verify-compatibility:
+    name: Verify Python 3.6+ compatibility
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install vermin
+        run: pip install vermin
+      - name: Check minimum Python version
+        run: |
+          # Verify all source files are compatible with Python 3.6+
+          # --violations flag shows incompatible constructs
+          vermin --target=3.6 --violations shortuuid/
+
   test:
-    name: Run tests
+    name: Run tests (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.7", "3.8", "3.9"]
+        # Test on currently supported Python versions
+        # Python 3.7 is EOL and no longer available in GitHub Actions
+        # Code compatibility with 3.6+ is verified via vermin above
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
-        run: pip install pytest pytest-md pytest-emoji
+        run: pip install pytest
       - name: Run pytest
-        uses: pavelzw/pytest-action@v2
-        with:
-          verbose: true
-          emoji: true
-          job-summary: true
-          custom-arguments: '-q'
-          click-to-expand: true
-          report-title: 'Test Report'
+        run: pytest -v
