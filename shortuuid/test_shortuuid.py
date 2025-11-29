@@ -217,6 +217,10 @@ class DecodingEdgeCasesTest(unittest.TestCase):
         self.assertRaises(ValueError, su.decode, 42)
         self.assertRaises(ValueError, su.decode, 42.0)
 
+    def test_decode_invalid_characters(self):
+        su = ShortUUID("abc")
+        self.assertRaises(ValueError, su.decode, "xyz")
+
 
 class CliTest(unittest.TestCase):
     @patch("shortuuid.cli.print")
