@@ -1,8 +1,8 @@
 """
 Benchmarks to measure performance improvements from optimizations.
 
-This script compares the optimized implementations against the original
-implementations to demonstrate the performance gains.
+This file can be safely deleted. It exists only to demonstrate the
+performance gains from the optimizations in this PR.
 
 Run with: python -m shortuuid.benchmark_optimizations
 """
