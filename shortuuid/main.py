@@ -3,6 +3,7 @@
 import math
 import secrets
 import uuid as _uu
+from typing import Dict
 from typing import List
 from typing import Optional
 
@@ -15,27 +16,35 @@ def int_to_string(
 
     The output has the most significant digit first.
     """
-    output = ""
     alpha_len = len(alphabet)
+    digits = []  # type: List[str]
     while number:
         number, digit = divmod(number, alpha_len)
-        output += alphabet[digit]
+        digits.append(alphabet[digit])
     if padding:
-        remainder = max(padding - len(output), 0)
-        output = output + alphabet[0] * remainder
-    return output[::-1]
+        remainder = max(padding - len(digits), 0)
+        digits.extend(alphabet[0] for _ in range(remainder))
+    digits.reverse()
+    return "".join(digits)
 
 
-def string_to_int(string: str, alphabet: List[str]) -> int:
+def string_to_int(
+    string: str,
+    alphabet: List[str],
+    alphabet_index: Optional[Dict[str, int]] = None,
+) -> int:
     """
     Convert a string to a number, using the given alphabet.
 
     The input is assumed to have the most significant digit first.
+    If alphabet_index is provided, uses O(1) dict lookup instead of O(n) list.index().
     """
+    if alphabet_index is None:
+        alphabet_index = {char: idx for idx, char in enumerate(alphabet)}
     number = 0
     alpha_len = len(alphabet)
     for char in string:
-        number = number * alpha_len + alphabet.index(char)
+        number = number * alpha_len + alphabet_index[char]
     return number
 
 
@@ -78,7 +87,7 @@ class ShortUUID(object):
             raise ValueError("Input `string` must be a str.")
         if legacy:
             string = string[::-1]
-        return _uu.UUID(int=string_to_int(string, self._alphabet))
+        return _uu.UUID(int=string_to_int(string, self._alphabet, self._alphabet_index))
 
     def uuid(self, name: Optional[str] = None, pad_length: Optional[int] = None) -> str:
         """
@@ -110,7 +119,7 @@ class ShortUUID(object):
         """Return the current alphabet used for new UUIDs."""
         return "".join(self._alphabet)
 
-    def set_alphabet(self, alphabet: str, dont_sort_alphabet: bool=False) -> None:
+    def set_alphabet(self, alphabet: str, dont_sort_alphabet: bool = False) -> None:
         """Set the alphabet to be used for new UUIDs."""
         # Turn the alphabet into a set and sort it to prevent duplicates
         # and ensure reproducibility.
@@ -118,6 +127,7 @@ class ShortUUID(object):
         if len(new_alphabet) > 1:
             self._alphabet = new_alphabet
             self._alpha_len = len(self._alphabet)
+            self._alphabet_index = {char: idx for idx, char in enumerate(self._alphabet)}
         else:
             raise ValueError("Alphabet with more than " "one unique symbols required.")
 
