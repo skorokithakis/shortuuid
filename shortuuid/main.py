@@ -44,7 +44,10 @@ def string_to_int(
     number = 0
     alpha_len = len(alphabet)
     for char in string:
-        number = number * alpha_len + alphabet_index[char]
+        try:
+            number = number * alpha_len + alphabet_index[char]
+        except KeyError:
+            raise ValueError("'{}' is not in alphabet".format(char))
     return number
 
 
