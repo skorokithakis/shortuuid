@@ -6,30 +6,13 @@ on:
     branches: [master]
 
 jobs:
-  # Verify code is compatible with Python 3.6 syntax
-  verify-compatibility:
-    name: Verify Python 3.6+ compatibility
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Install vermin
-        run: pip install vermin
-      - name: Check minimum Python version
-        run: |
-          # Verify all source files are compatible with Python 3.6+
-          # --violations flag shows incompatible constructs
-          vermin --target=3.6 --violations shortuuid/
-
   test:
     name: Run tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
         # Test on currently supported Python versions
-        # Code compatibility with 3.6+ is verified via vermin above
+        # Code compatibility with 3.6+ is verified via vermin pre-commit hook
         python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
     steps:
       - uses: actions/checkout@v4
