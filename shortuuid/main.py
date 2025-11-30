@@ -36,7 +36,10 @@ def string_to_int(
     Convert a string to a number, using the given alphabet.
 
     The input is assumed to have the most significant digit first.
-    If alphabet_index is provided, uses O(1) dict lookup instead of O(n) list.index().
+
+    The alphabet_index, if provided, should map each character to its index:
+    ``{char: idx for idx, char in enumerate(alphabet)}``. This avoids rebuilding
+    the index on each call when decoding multiple strings with the same alphabet.
     """
     if alphabet_index is None:
         alphabet_index = {char: idx for idx, char in enumerate(alphabet)}
@@ -136,6 +139,7 @@ class ShortUUID(object):
             self._alphabet = new_alphabet
             self._alphabet_str = "".join(new_alphabet)
             self._alpha_len = len(self._alphabet)
+            # Cache char->index mapping for O(1) lookups in decode()
             self._alphabet_index = {
                 char: idx for idx, char in enumerate(self._alphabet)
             }
