@@ -10,8 +10,6 @@ generating uuids using Python's built-in `uuid` module and then translating them
 base57 using lowercase and uppercase letters and digits, and removing similar-looking
 characters such as l, 1, I, O and 0.
 
-[![image](https://travis-ci.org/skorokithakis/shortuuid.svg?branch=master)](https://travis-ci.org/skorokithakis/shortuuid)
-
 
 Installation
 ------------
@@ -90,8 +88,8 @@ consistency:
 '0123abcdefgh'
 ```
 
-You can prevent the alphabet from being sorted by passing the `dont_sort_alphabet` 
-keyword argument to `set_alphabet()`. This option ensures compatibility with different 
+You can prevent the alphabet from being sorted by passing the `dont_sort_alphabet`
+keyword argument to `set_alphabet()`. This option ensures compatibility with different
 implementations of ShortUUID:
 
 ```python
