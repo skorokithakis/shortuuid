@@ -9,6 +9,8 @@
 
 ### Fixes
 
+* Preserve ValueError for invalid characters in string_to_int. [Claude]
+
 * Don't install COPYING at top level of wheel (#105) [Colin Watson]
 
 
