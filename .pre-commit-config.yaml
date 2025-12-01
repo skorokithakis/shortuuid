@@ -31,5 +31,5 @@ repos:
     always_run: true
     pass_filenames: false
     name: Generate changelog
-    entry: bash -c ".venv/bin/gitchangelog > CHANGELOG.md"
+    entry: bash -c "gitchangelog > CHANGELOG.md"
     stages: [pre-commit]
