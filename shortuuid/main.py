@@ -47,7 +47,7 @@ def string_to_int(
     number = 0
     # Derive the radix from the index so `alphabet` is truly ignored when
     # alphabet_index is passed, as documented above.
-    alpha_len = max(alphabet_index.values()) + 1
+    alpha_len = len(alphabet_index)
     for char in string:
         try:
             number = number * alpha_len + alphabet_index[char]
