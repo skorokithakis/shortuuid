@@ -14,6 +14,7 @@ from shortuuid.main import get_alphabet
 from shortuuid.main import random
 from shortuuid.main import set_alphabet
 from shortuuid.main import ShortUUID
+from shortuuid.main import string_to_int
 from shortuuid.main import uuid
 
 sys.path.insert(0, os.path.abspath(__file__ + "/../.."))
@@ -220,6 +221,19 @@ class DecodingEdgeCasesTest(unittest.TestCase):
     def test_decode_invalid_characters(self):
         su = ShortUUID("abc")
         self.assertRaises(ValueError, su.decode, "xyz")
+
+    def test_string_to_int_ignores_alphabet_when_index_given(self):
+        # The docstring promises `alphabet` is ignored when `alphabet_index`
+        # is passed. Build an index for hex (base 16) while passing a decimal
+        # alphabet (len 10): the result must use base 16, not 10.
+        hex_index = {char: idx for idx, char in enumerate("0123456789abcdef")}
+        self.assertEqual(
+            string_to_int("10", alphabet="0123456789", alphabet_index=hex_index),
+            16,
+        )
+        # Correct usage (alphabet matches index) is unchanged.
+        self.assertEqual(string_to_int("10", alphabet="0123456789abcdef"), 16)
+        self.assertEqual(string_to_int("1f", alphabet="0123456789abcdef"), 31)
 
 
 class CliTest(unittest.TestCase):
