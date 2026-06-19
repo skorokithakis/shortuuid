@@ -176,7 +176,7 @@ class MyModel(models.Model):
         max_length=40,
         prefix="id_",
         alphabet="abcdefg1234",
-        dont_sort_alphabet=False
+        dont_sort_alphabet=False,
         primary_key=True,
     )
 
