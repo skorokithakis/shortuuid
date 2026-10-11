@@ -36,5 +36,7 @@ class ShortUUIDField(models.CharField):
         kwargs["alphabet"] = self.alphabet
         kwargs["length"] = self.length
         kwargs["prefix"] = self.prefix
+        if self.dont_sort_alphabet:
+            kwargs["dont_sort_alphabet"] = self.dont_sort_alphabet
         kwargs.pop("default", None)
         return name, path, args, kwargs
