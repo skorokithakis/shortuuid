@@ -151,8 +151,7 @@ class ShortUUID(object):
 
     def encoded_length(self, num_bytes: int = 16) -> int:
         """Return the string length of the shortened UUID."""
-        factor = math.log(256) / math.log(self._alpha_len)
-        return int(math.ceil(factor * num_bytes))
+        return int(math.ceil(8 * num_bytes / math.log2(self._alpha_len)))
 
 
 # For backwards compatibility
