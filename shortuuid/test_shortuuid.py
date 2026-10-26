@@ -157,6 +157,17 @@ class ClassShortUUIDTest(unittest.TestCase):
         su4 = ShortUUID()
         self.assertEqual(su4.encoded_length(num_bytes=8), 11)
 
+    def test_encoded_length_power_of_two_alphabets(self):
+        base64_alphabet = (
+            string.ascii_uppercase + string.ascii_lowercase + string.digits + "+/"
+        )
+        for alphabet, bits_per_char in (("01234567", 3), (base64_alphabet, 6)):
+            su = ShortUUID(alphabet)
+            for num_bytes in range(17):
+                with self.subTest(alphabet_size=len(alphabet), num_bytes=num_bytes):
+                    expected = (8 * num_bytes + bits_per_char - 1) // bits_per_char
+                    self.assertEqual(su.encoded_length(num_bytes), expected)
+
 
 class ShortUUIDPaddingTest(unittest.TestCase):
     def test_padding(self):
