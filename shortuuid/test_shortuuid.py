@@ -11,6 +11,7 @@ from shortuuid.cli import cli
 from shortuuid.main import decode
 from shortuuid.main import encode
 from shortuuid.main import get_alphabet
+from shortuuid.main import int_to_string
 from shortuuid.main import random
 from shortuuid.main import set_alphabet
 from shortuuid.main import ShortUUID
@@ -208,6 +209,15 @@ class ShortUUIDPaddingTest(unittest.TestCase):
         uid_length = next(iter(uid_lengths.keys()))  # Get the 1 value
 
         self.assertEqual(uid_lengths[uid_length], num_iterations)
+
+
+class IntToStringTest(unittest.TestCase):
+    def test_zero_has_a_digit_without_padding(self):
+        self.assertEqual(int_to_string(0, ["0", "1"]), "0")
+        self.assertEqual(int_to_string(0, ["0", "1"], padding=3), "000")
+
+    def test_negative_number_is_rejected(self):
+        self.assertRaises(ValueError, int_to_string, -1, ["0", "1"])
 
 
 class EncodingEdgeCasesTest(unittest.TestCase):

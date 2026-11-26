@@ -16,8 +16,13 @@ def int_to_string(
 
     The output has the most significant digit first.
     """
+    if number < 0:
+        raise ValueError("Input `number` must be non-negative.")
+
     output = ""
     alpha_len = len(alphabet)
+    if number == 0:
+        output = alphabet[0]
     while number:
         number, digit = divmod(number, alpha_len)
         output += alphabet[digit]
